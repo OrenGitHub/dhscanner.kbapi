@@ -2,7 +2,7 @@ FROM haskell:9.6.7 AS builder
 
 WORKDIR /build
 
-COPY dhscanner.cabal VERSION ./
+COPY dhscanner-kbapi.cabal VERSION ./
 COPY src/ src/
 COPY json-schema-creator/ json-schema-creator/
 
