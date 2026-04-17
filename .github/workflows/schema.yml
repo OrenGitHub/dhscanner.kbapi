@@ -1,0 +1,48 @@
+name: Generate JSON Schema
+
+on:
+  pull_request:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  generate-schema:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read version
+        id: version
+        run: echo "version=$(cat VERSION)" >> "$GITHUB_OUTPUT"
+
+      - name: Build schema generator
+        run: |
+          docker build --target builder -t kbapi-schema .
+
+      - name: Extract schema files
+        run: |
+          docker create --name extract kbapi-schema
+          docker cp extract:/build/query.schema.json .
+          docker cp extract:/build/query_result.schema.json .
+          docker rm extract
+
+      - name: Upload schema as PR artifact
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: json-schema-v${{ steps.version.outputs.version }}
+          path: |
+            query.schema.json
+            query_result.schema.json
+
+      - name: Create release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            query.schema.json
+            query_result.schema.json
+          tag_name: ${{ github.ref_name }}
+          name: v${{ steps.version.outputs.version }}
