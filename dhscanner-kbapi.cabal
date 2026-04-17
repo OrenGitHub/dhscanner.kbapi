@@ -4,25 +4,31 @@ category:           api
 synopsis:           query language api for dhscanner knowledge base
 description:
 
-    The [abstract ayntax tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (ast)
-    aims to be a data structure able to represent /multiple/ abstract syntax trees from
-    /various/ programming languages. Its main purpose is to serve as the first step for /static code analysis/,
-    as part of the [dhscanner](https://github.com/OrenGitHub/dhscanner) framework
-    for CI/CD security code scans. As part of that framework,
-    it targets mostly languages used for /cloud native applications/:
-    __Python__, __Ruby__, __Php__, __Javascript__, __Typescript__, __Java__ and __Golang__.
-    Typically, a file is first parsed with the corresponding native parser of the language it's written in
-    (see [Python's native parser](https://docs.python.org/3/library/ast.html) for example).
-    The native ast is then dumped (as JSON, or plain text)
-    and sent to a [Happy](https://haskell-happy.readthedocs.io/en/latest/) +
-    [Alex](https://haskell-alex.readthedocs.io/en/latest/) Haskell parser
-    which accommodates the natively parsed content into the ast.
-    Geared towards static code analysis, the ast design abstracts away details that are normally ignored anyway.
-    For example, it does not distinguish between __try__ and __catch__ blocks,
-    and models both of them as plain sequential code blocks. Every file has exactly one ast that represents it.
-    Non Haskell parogrammers note: The ast is /immutable/ (like everything else in Haskell ...)
+    This package defines the API for the knowledge base used by [dhscanner](https://dhscanner.org/docs/).
+    The documentation is intended for both humans 🚶and LLM agents 🤖.
+    In this context, a knowledge base is a structured collection of /code facts/.
+    For a detailed explanation of code facts and how they are generated,
+    see [dhscanner-kbgen](https://hackage.haskell.org/package/dhscanner-kbgen)
+    on [Hackage](https://hackage.haskell.org/).
+    
+    Code facts form an abstraction layer over the underlying data representation,
+    which can be a graph database, a relational database (like Postgres),
+    a logic program etc.
 
-version:            1.0.0
+    The design aims to separate, as much as possible, the following entities:
+
+    * the underlying data storage
+    * the code facts abstraction layer
+    * the exposed knowledge base API
+
+    For instance, migrating from a graph database to a logic program
+    representation should conceptually be straightforward.
+
+    As another example, changes to the API should ideally not require
+    fundamental modifications to the structure or specification
+    of code facts.
+
+version:            1.0.1
 license:            GPL-3.0-only
 license-file:       LICENSE
 author:             OrenGitHub
