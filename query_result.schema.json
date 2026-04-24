@@ -123,6 +123,9 @@
             },
             "FoundHttpGetHandlerRequestObjectMatch": {
                 "properties": {
+                    "foundHttpGetHandlerLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
                     "foundHttpGetHandlerRequestObjectMatchLocation": {
                         "$ref": "#/components/schemas/Location"
                     },
@@ -131,6 +134,7 @@
                     }
                 },
                 "required": [
+                    "foundHttpGetHandlerLocation",
                     "foundHttpGetHandlerRequestObjectMatchLocation",
                     "foundHttpGetHandlerRequestObjectMatchUrl"
                 ],
@@ -158,7 +162,10 @@
             },
             "FoundHttpPostHandlerRequestObjectMatch": {
                 "properties": {
-                    "foundHttpPostHandlerRequestObjectMatchLocation": {
+                    "foundHttpPostHandlerLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "foundHttpPostHandlerRequestObjectLocation": {
                         "$ref": "#/components/schemas/Location"
                     },
                     "foundHttpPostHandlerRequestObjectMatchUrl": {
@@ -166,7 +173,8 @@
                     }
                 },
                 "required": [
-                    "foundHttpPostHandlerRequestObjectMatchLocation",
+                    "foundHttpPostHandlerLocation",
+                    "foundHttpPostHandlerRequestObjectLocation",
                     "foundHttpPostHandlerRequestObjectMatchUrl"
                 ],
                 "type": "object"
