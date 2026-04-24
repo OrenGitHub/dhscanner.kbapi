@@ -1,0 +1,442 @@
+{
+    "components": {
+        "schemas": {
+            "CommentsInFunction": {
+                "properties": {
+                    "commentsInFunctionLimit": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "commentsInFunctionLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    }
+                },
+                "required": [
+                    "commentsInFunctionLocation",
+                    "commentsInFunctionLimit"
+                ],
+                "type": "object"
+            },
+            "ConstStringsMatching": {
+                "properties": {
+                    "constStringsMatchingLimit": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "constStringsMatchingThisRegex": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "constStringsMatchingThisRegex",
+                    "constStringsMatchingLimit"
+                ],
+                "type": "object"
+            },
+            "ControlFlowPath": {
+                "properties": {
+                    "controlFlowPathCallee": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "controlFlowPathCaller": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "controlFlowPathLimitNumHops": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "controlFlowPathCaller",
+                    "controlFlowPathCallee",
+                    "controlFlowPathLimitNumHops"
+                ],
+                "type": "object"
+            },
+            "DataFlowPath": {
+                "properties": {
+                    "dataFlowPathFrom": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "dataFlowPathLimitLength": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "dataFlowPathTo": {
+                        "$ref": "#/components/schemas/Location"
+                    }
+                },
+                "required": [
+                    "dataFlowPathFrom",
+                    "dataFlowPathTo",
+                    "dataFlowPathLimitLength"
+                ],
+                "type": "object"
+            },
+            "HttpGetHandlerRequestObject": {
+                "properties": {
+                    "httpGetHandlerRequestObjectLimit": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "httpGetHandlerRequestObjectUrlParts": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "httpGetHandlerRequestObjectUrlParts",
+                    "httpGetHandlerRequestObjectLimit"
+                ],
+                "type": "object"
+            },
+            "HttpPostHandlerRequestObject": {
+                "properties": {
+                    "httpPostHandlerRequestObjectLimit": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "httpPostHandlerRequestObjectUrlParts": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "httpPostHandlerRequestObjectUrlParts",
+                    "httpPostHandlerRequestObjectLimit"
+                ],
+                "type": "object"
+            },
+            "Location": {
+                "properties": {
+                    "colEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "colStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "filename": {
+                        "type": "string"
+                    },
+                    "lineEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "lineStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "filename",
+                    "lineStart",
+                    "lineEnd",
+                    "colStart",
+                    "colEnd"
+                ],
+                "type": "object"
+            },
+            "Query": {
+                "oneOf": [
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/ConstStringsMatching"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "ConstStringsMatching"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "ConstStringsMatching",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/HttpGetHandlerRequestObject"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "HttpGetHandlerRequestObject"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "HttpGetHandlerRequestObject",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/HttpPostHandlerRequestObject"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "HttpPostHandlerRequestObject"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "HttpPostHandlerRequestObject",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/CommentsInFunction"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "CommentsInFunction"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "CommentsInFunction",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/WriteContentToLocalFile"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "WriteContentToLocalFile"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "WriteContentToLocalFile",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/ControlFlowPath"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "ControlFlowPath"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "ControlFlowPath",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/DataFlowPath"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "DataFlowPath"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "DataFlowPath",
+                        "type": "object"
+                    }
+                ]
+            },
+            "WriteContentToLocalFile": {
+                "properties": {
+                    "writeContentToLocalFileLimit": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "writeContentToLocalFileLimit"
+                ],
+                "type": "object"
+            }
+        }
+    },
+    "oneOf": [
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/ConstStringsMatching"
+                },
+                "tag": {
+                    "enum": [
+                        "ConstStringsMatching"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "ConstStringsMatching",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/HttpGetHandlerRequestObject"
+                },
+                "tag": {
+                    "enum": [
+                        "HttpGetHandlerRequestObject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "HttpGetHandlerRequestObject",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/HttpPostHandlerRequestObject"
+                },
+                "tag": {
+                    "enum": [
+                        "HttpPostHandlerRequestObject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "HttpPostHandlerRequestObject",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/CommentsInFunction"
+                },
+                "tag": {
+                    "enum": [
+                        "CommentsInFunction"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "CommentsInFunction",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/WriteContentToLocalFile"
+                },
+                "tag": {
+                    "enum": [
+                        "WriteContentToLocalFile"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "WriteContentToLocalFile",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/ControlFlowPath"
+                },
+                "tag": {
+                    "enum": [
+                        "ControlFlowPath"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "ControlFlowPath",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/DataFlowPath"
+                },
+                "tag": {
+                    "enum": [
+                        "DataFlowPath"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "DataFlowPath",
+            "type": "object"
+        }
+    ]
+}

@@ -1,0 +1,503 @@
+{
+    "components": {
+        "schemas": {
+            "Comment": {
+                "properties": {
+                    "commentContent": {
+                        "type": "string"
+                    },
+                    "commentLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    }
+                },
+                "required": [
+                    "commentLocation",
+                    "commentContent"
+                ],
+                "type": "object"
+            },
+            "FoundCommentsInFunction": {
+                "properties": {
+                    "foundCommentsInFunctionComments": {
+                        "items": {
+                            "$ref": "#/components/schemas/Comment"
+                        },
+                        "type": "array"
+                    },
+                    "foundCommentsInFunctionLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "foundCommentsInFunctionTotal": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "foundCommentsInFunctionLocation",
+                    "foundCommentsInFunctionTotal",
+                    "foundCommentsInFunctionComments"
+                ],
+                "type": "object"
+            },
+            "FoundConstStringMatch": {
+                "properties": {
+                    "foundConstStringMatchLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "foundConstStringMatchValue": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "foundConstStringMatchLocation",
+                    "foundConstStringMatchValue"
+                ],
+                "type": "object"
+            },
+            "FoundConstStringsMatching": {
+                "properties": {
+                    "foundConstStringsMatches": {
+                        "items": {
+                            "$ref": "#/components/schemas/FoundConstStringMatch"
+                        },
+                        "type": "array"
+                    },
+                    "foundConstStringsMatchesTotal": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "foundConstStringsMatchingThisRegex": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "foundConstStringsMatchingThisRegex",
+                    "foundConstStringsMatchesTotal",
+                    "foundConstStringsMatches"
+                ],
+                "type": "object"
+            },
+            "FoundControlFlowPath": {
+                "properties": {
+                    "foundControlFlowPathPath": {
+                        "items": {
+                            "$ref": "#/components/schemas/Location"
+                        },
+                        "type": "array"
+                    }
+                },
+                "type": "object"
+            },
+            "FoundDataFlowPath": {
+                "properties": {
+                    "foundDataFlowPathPath": {
+                        "items": {
+                            "$ref": "#/components/schemas/Location"
+                        },
+                        "type": "array"
+                    }
+                },
+                "type": "object"
+            },
+            "FoundHttpGetHandlerRequestObject": {
+                "properties": {
+                    "foundHttpGetHandlerRequestObjectMatches": {
+                        "items": {
+                            "$ref": "#/components/schemas/FoundHttpGetHandlerRequestObjectMatch"
+                        },
+                        "type": "array"
+                    },
+                    "foundHttpGetHandlerRequestObjectTotal": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "foundHttpGetHandlerRequestObjectTotal",
+                    "foundHttpGetHandlerRequestObjectMatches"
+                ],
+                "type": "object"
+            },
+            "FoundHttpGetHandlerRequestObjectMatch": {
+                "properties": {
+                    "foundHttpGetHandlerRequestObjectMatchLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "foundHttpGetHandlerRequestObjectMatchUrl": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "foundHttpGetHandlerRequestObjectMatchLocation",
+                    "foundHttpGetHandlerRequestObjectMatchUrl"
+                ],
+                "type": "object"
+            },
+            "FoundHttpPostHandlerRequestObject": {
+                "properties": {
+                    "foundHttpPostHandlerRequestObjectMatches": {
+                        "items": {
+                            "$ref": "#/components/schemas/FoundHttpPostHandlerRequestObjectMatch"
+                        },
+                        "type": "array"
+                    },
+                    "foundHttpPostHandlerRequestObjectTotal": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "foundHttpPostHandlerRequestObjectTotal",
+                    "foundHttpPostHandlerRequestObjectMatches"
+                ],
+                "type": "object"
+            },
+            "FoundHttpPostHandlerRequestObjectMatch": {
+                "properties": {
+                    "foundHttpPostHandlerRequestObjectMatchLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "foundHttpPostHandlerRequestObjectMatchUrl": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "foundHttpPostHandlerRequestObjectMatchLocation",
+                    "foundHttpPostHandlerRequestObjectMatchUrl"
+                ],
+                "type": "object"
+            },
+            "FoundWriteContentToLocalFile": {
+                "properties": {
+                    "foundWriteContentToLocalFileLocations": {
+                        "items": {
+                            "$ref": "#/components/schemas/Location"
+                        },
+                        "type": "array"
+                    },
+                    "foundWriteContentToLocalFileTotal": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "foundWriteContentToLocalFileTotal",
+                    "foundWriteContentToLocalFileLocations"
+                ],
+                "type": "object"
+            },
+            "Location": {
+                "properties": {
+                    "colEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "colStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "filename": {
+                        "type": "string"
+                    },
+                    "lineEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "lineStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "filename",
+                    "lineStart",
+                    "lineEnd",
+                    "colStart",
+                    "colEnd"
+                ],
+                "type": "object"
+            },
+            "QueryResult": {
+                "oneOf": [
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/FoundConstStringsMatching"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundConstStringsMatching"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundConstStringsMatching",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/FoundHttpGetHandlerRequestObject"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundHttpGetHandlerRequestObject"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundHttpGetHandlerRequestObject",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/FoundHttpPostHandlerRequestObject"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundHttpPostHandlerRequestObject"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundHttpPostHandlerRequestObject",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/FoundCommentsInFunction"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundCommentsInFunction"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundCommentsInFunction",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/FoundWriteContentToLocalFile"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundWriteContentToLocalFile"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundWriteContentToLocalFile",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/FoundControlFlowPath"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundControlFlowPath"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundControlFlowPath",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/FoundDataFlowPath"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundDataFlowPath"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundDataFlowPath",
+                        "type": "object"
+                    }
+                ]
+            }
+        }
+    },
+    "oneOf": [
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/FoundConstStringsMatching"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundConstStringsMatching"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundConstStringsMatching",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/FoundHttpGetHandlerRequestObject"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundHttpGetHandlerRequestObject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundHttpGetHandlerRequestObject",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/FoundHttpPostHandlerRequestObject"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundHttpPostHandlerRequestObject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundHttpPostHandlerRequestObject",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/FoundCommentsInFunction"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundCommentsInFunction"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundCommentsInFunction",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/FoundWriteContentToLocalFile"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundWriteContentToLocalFile"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundWriteContentToLocalFile",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/FoundControlFlowPath"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundControlFlowPath"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundControlFlowPath",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/FoundDataFlowPath"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundDataFlowPath"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundDataFlowPath",
+            "type": "object"
+        }
+    ]
+}
