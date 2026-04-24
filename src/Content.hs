@@ -55,7 +55,8 @@ data FoundHttpPostHandlerRequestObject
 data FoundHttpPostHandlerRequestObjectMatch
    = FoundHttpPostHandlerRequestObjectMatch
      {
-         foundHttpPostHandlerRequestObjectMatchLocation :: Location,
+         foundHttpPostHandlerLocation :: Location,
+         foundHttpPostHandlerRequestObjectLocation :: Location,
          foundHttpPostHandlerRequestObjectMatchUrl :: String
      }
      deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
@@ -79,6 +80,7 @@ data FoundHttpGetHandlerRequestObject
 data FoundHttpGetHandlerRequestObjectMatch
    = FoundHttpGetHandlerRequestObjectMatch
      {
+         foundHttpGetHandlerLocation :: Location,
          foundHttpGetHandlerRequestObjectMatchLocation :: Location,
          foundHttpGetHandlerRequestObjectMatchUrl :: String
      }

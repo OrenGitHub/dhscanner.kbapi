@@ -28,7 +28,7 @@ description:
     fundamental modifications to the structure or specification
     of code facts.
 
-version:            1.0.1
+version:            1.0.3
 license:            GPL-3.0-only
 license-file:       LICENSE
 author:             OrenGitHub
@@ -52,8 +52,8 @@ library
         Content
 
     build-depends:
-        aeson < 2.3,
-        base < 4.19,
+        aeson,
+        base < 4.21,
         containers < 0.7,
         dhscanner-ast >= 1.1.5
 
@@ -74,7 +74,7 @@ executable json-schema-creator
     build-depends:
         aeson,
         aeson-pretty,
-        base < 4.19,
+        base < 4.21,
         bytestring,
         openapi3,
         dhscanner-kbapi,

@@ -51,7 +51,7 @@ jobs:
             exit 0
           fi
 
-          git commit -m ":arrow_up: Bump version: ${{ steps.version.outputs.new_version }} [skip ci]"
+          git commit -m ":arrow_up: Bump version: ${{ steps.version.outputs.new_version }}"
           git push
 
       - name: Create tag and release
