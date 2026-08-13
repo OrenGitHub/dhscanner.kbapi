@@ -1,6 +1,26 @@
 {
     "components": {
         "schemas": {
+            "AuthenticatedHttpPostHandlerRequestObject": {
+                "properties": {
+                    "authenticatedHttpPostHandlerRequestObjectLimit": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "authenticatedHttpPostHandlerRequestObjectUrlParts": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "authenticatedHttpPostHandlerRequestObjectUrlParts",
+                    "authenticatedHttpPostHandlerRequestObjectLimit"
+                ],
+                "type": "object"
+            },
             "CommentsInFunction": {
                 "properties": {
                     "commentsInFunctionLimit": {
@@ -97,26 +117,6 @@
                 ],
                 "type": "object"
             },
-            "HttpPostHandlerRequestObject": {
-                "properties": {
-                    "httpPostHandlerRequestObjectLimit": {
-                        "maximum": 1.8446744073709551615e19,
-                        "minimum": 0,
-                        "type": "integer"
-                    },
-                    "httpPostHandlerRequestObjectUrlParts": {
-                        "items": {
-                            "type": "string"
-                        },
-                        "type": "array"
-                    }
-                },
-                "required": [
-                    "httpPostHandlerRequestObjectUrlParts",
-                    "httpPostHandlerRequestObjectLimit"
-                ],
-                "type": "object"
-            },
             "Location": {
                 "properties": {
                     "colEnd": {
@@ -195,11 +195,11 @@
                     {
                         "properties": {
                             "contents": {
-                                "$ref": "#/components/schemas/HttpPostHandlerRequestObject"
+                                "$ref": "#/components/schemas/UnauthenticatedHttpPostHandlerRequestObject"
                             },
                             "tag": {
                                 "enum": [
-                                    "HttpPostHandlerRequestObject"
+                                    "UnauthenticatedHttpPostHandlerRequestObject"
                                 ],
                                 "type": "string"
                             }
@@ -208,7 +208,26 @@
                             "tag",
                             "contents"
                         ],
-                        "title": "HttpPostHandlerRequestObject",
+                        "title": "UnauthenticatedHttpPostHandlerRequestObject",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/AuthenticatedHttpPostHandlerRequestObject"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "AuthenticatedHttpPostHandlerRequestObject"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "AuthenticatedHttpPostHandlerRequestObject",
                         "type": "object"
                     },
                     {
@@ -289,6 +308,26 @@
                     }
                 ]
             },
+            "UnauthenticatedHttpPostHandlerRequestObject": {
+                "properties": {
+                    "unauthenticatedHttpPostHandlerRequestObjectLimit": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "unauthenticatedHttpPostHandlerRequestObjectUrlParts": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "unauthenticatedHttpPostHandlerRequestObjectUrlParts",
+                    "unauthenticatedHttpPostHandlerRequestObjectLimit"
+                ],
+                "type": "object"
+            },
             "WriteContentToLocalFile": {
                 "properties": {
                     "writeContentToLocalFileLimit": {
@@ -346,11 +385,11 @@
         {
             "properties": {
                 "contents": {
-                    "$ref": "#/components/schemas/HttpPostHandlerRequestObject"
+                    "$ref": "#/components/schemas/UnauthenticatedHttpPostHandlerRequestObject"
                 },
                 "tag": {
                     "enum": [
-                        "HttpPostHandlerRequestObject"
+                        "UnauthenticatedHttpPostHandlerRequestObject"
                     ],
                     "type": "string"
                 }
@@ -359,7 +398,26 @@
                 "tag",
                 "contents"
             ],
-            "title": "HttpPostHandlerRequestObject",
+            "title": "UnauthenticatedHttpPostHandlerRequestObject",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/AuthenticatedHttpPostHandlerRequestObject"
+                },
+                "tag": {
+                    "enum": [
+                        "AuthenticatedHttpPostHandlerRequestObject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "AuthenticatedHttpPostHandlerRequestObject",
             "type": "object"
         },
         {

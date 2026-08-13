@@ -16,6 +16,26 @@
                 ],
                 "type": "object"
             },
+            "FoundAuthenticatedHttpPostHandlerRequestObject": {
+                "properties": {
+                    "foundAuthenticatedHttpPostHandlerRequestObjectMatches": {
+                        "items": {
+                            "$ref": "#/components/schemas/FoundHttpPostHandlerRequestObjectMatch"
+                        },
+                        "type": "array"
+                    },
+                    "foundAuthenticatedHttpPostHandlerRequestObjectTotal": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "foundAuthenticatedHttpPostHandlerRequestObjectTotal",
+                    "foundAuthenticatedHttpPostHandlerRequestObjectMatches"
+                ],
+                "type": "object"
+            },
             "FoundCommentsInFunction": {
                 "properties": {
                     "foundCommentsInFunctionComments": {
@@ -140,26 +160,6 @@
                 ],
                 "type": "object"
             },
-            "FoundHttpPostHandlerRequestObject": {
-                "properties": {
-                    "foundHttpPostHandlerRequestObjectMatches": {
-                        "items": {
-                            "$ref": "#/components/schemas/FoundHttpPostHandlerRequestObjectMatch"
-                        },
-                        "type": "array"
-                    },
-                    "foundHttpPostHandlerRequestObjectTotal": {
-                        "maximum": 1.8446744073709551615e19,
-                        "minimum": 0,
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "foundHttpPostHandlerRequestObjectTotal",
-                    "foundHttpPostHandlerRequestObjectMatches"
-                ],
-                "type": "object"
-            },
             "FoundHttpPostHandlerRequestObjectMatch": {
                 "properties": {
                     "foundHttpPostHandlerLocation": {
@@ -176,6 +176,26 @@
                     "foundHttpPostHandlerLocation",
                     "foundHttpPostHandlerRequestObjectLocation",
                     "foundHttpPostHandlerRequestObjectMatchUrl"
+                ],
+                "type": "object"
+            },
+            "FoundUnauthenticatedHttpPostHandlerRequestObject": {
+                "properties": {
+                    "foundUnauthenticatedHttpPostHandlerRequestObjectMatches": {
+                        "items": {
+                            "$ref": "#/components/schemas/FoundHttpPostHandlerRequestObjectMatch"
+                        },
+                        "type": "array"
+                    },
+                    "foundUnauthenticatedHttpPostHandlerRequestObjectTotal": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "foundUnauthenticatedHttpPostHandlerRequestObjectTotal",
+                    "foundUnauthenticatedHttpPostHandlerRequestObjectMatches"
                 ],
                 "type": "object"
             },
@@ -277,11 +297,11 @@
                     {
                         "properties": {
                             "contents": {
-                                "$ref": "#/components/schemas/FoundHttpPostHandlerRequestObject"
+                                "$ref": "#/components/schemas/FoundUnauthenticatedHttpPostHandlerRequestObject"
                             },
                             "tag": {
                                 "enum": [
-                                    "FoundHttpPostHandlerRequestObject"
+                                    "FoundUnauthenticatedHttpPostHandlerRequestObject"
                                 ],
                                 "type": "string"
                             }
@@ -290,7 +310,26 @@
                             "tag",
                             "contents"
                         ],
-                        "title": "FoundHttpPostHandlerRequestObject",
+                        "title": "FoundUnauthenticatedHttpPostHandlerRequestObject",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/FoundAuthenticatedHttpPostHandlerRequestObject"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundAuthenticatedHttpPostHandlerRequestObject"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundAuthenticatedHttpPostHandlerRequestObject",
                         "type": "object"
                     },
                     {
@@ -415,11 +454,11 @@
         {
             "properties": {
                 "contents": {
-                    "$ref": "#/components/schemas/FoundHttpPostHandlerRequestObject"
+                    "$ref": "#/components/schemas/FoundUnauthenticatedHttpPostHandlerRequestObject"
                 },
                 "tag": {
                     "enum": [
-                        "FoundHttpPostHandlerRequestObject"
+                        "FoundUnauthenticatedHttpPostHandlerRequestObject"
                     ],
                     "type": "string"
                 }
@@ -428,7 +467,26 @@
                 "tag",
                 "contents"
             ],
-            "title": "FoundHttpPostHandlerRequestObject",
+            "title": "FoundUnauthenticatedHttpPostHandlerRequestObject",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/FoundAuthenticatedHttpPostHandlerRequestObject"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundAuthenticatedHttpPostHandlerRequestObject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundAuthenticatedHttpPostHandlerRequestObject",
             "type": "object"
         },
         {
