@@ -36,19 +36,35 @@ data FoundConstStringMatch
      }
      deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 
-data HttpPostHandlerRequestObject
-   = HttpPostHandlerRequestObject
+data UnauthenticatedHttpPostHandlerRequestObject
+   = UnauthenticatedHttpPostHandlerRequestObject
      {
-         httpPostHandlerRequestObjectUrlParts :: [ String ],
-         httpPostHandlerRequestObjectLimit :: Word
+         unauthenticatedHttpPostHandlerRequestObjectUrlParts :: [ String ],
+         unauthenticatedHttpPostHandlerRequestObjectLimit :: Word
      }
      deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 
-data FoundHttpPostHandlerRequestObject
-   = FoundHttpPostHandlerRequestObject
+data FoundUnauthenticatedHttpPostHandlerRequestObject
+   = FoundUnauthenticatedHttpPostHandlerRequestObject
      {
-         foundHttpPostHandlerRequestObjectTotal :: Word,
-         foundHttpPostHandlerRequestObjectMatches :: [ FoundHttpPostHandlerRequestObjectMatch ]
+         foundUnauthenticatedHttpPostHandlerRequestObjectTotal :: Word,
+         foundUnauthenticatedHttpPostHandlerRequestObjectMatches :: [ FoundHttpPostHandlerRequestObjectMatch ]
+     }
+     deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
+
+data AuthenticatedHttpPostHandlerRequestObject
+   = AuthenticatedHttpPostHandlerRequestObject
+     {
+         authenticatedHttpPostHandlerRequestObjectUrlParts :: [ String ],
+         authenticatedHttpPostHandlerRequestObjectLimit :: Word
+     }
+     deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
+
+data FoundAuthenticatedHttpPostHandlerRequestObject
+   = FoundAuthenticatedHttpPostHandlerRequestObject
+     {
+         foundAuthenticatedHttpPostHandlerRequestObjectTotal :: Word,
+         foundAuthenticatedHttpPostHandlerRequestObjectMatches :: [ FoundHttpPostHandlerRequestObjectMatch ]
      }
      deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 

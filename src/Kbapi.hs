@@ -53,7 +53,8 @@ import qualified Content
 data Query
    = ConstStringsMatching Content.ConstStringsMatching
    | HttpGetHandlerRequestObject Content.HttpGetHandlerRequestObject
-   | HttpPostHandlerRequestObject Content.HttpPostHandlerRequestObject
+   | UnauthenticatedHttpPostHandlerRequestObject Content.UnauthenticatedHttpPostHandlerRequestObject
+   | AuthenticatedHttpPostHandlerRequestObject Content.AuthenticatedHttpPostHandlerRequestObject
    | CommentsInFunction Content.CommentsInFunction
    | WriteContentToLocalFile Content.WriteContentToLocalFile
    | ControlFlowPath Content.ControlFlowPath
@@ -63,7 +64,8 @@ data Query
 data QueryResult
    = FoundConstStringsMatching Content.FoundConstStringsMatching
    | FoundHttpGetHandlerRequestObject Content.FoundHttpGetHandlerRequestObject
-   | FoundHttpPostHandlerRequestObject Content.FoundHttpPostHandlerRequestObject
+   | FoundUnauthenticatedHttpPostHandlerRequestObject Content.FoundUnauthenticatedHttpPostHandlerRequestObject
+   | FoundAuthenticatedHttpPostHandlerRequestObject Content.FoundAuthenticatedHttpPostHandlerRequestObject
    | FoundCommentsInFunction Content.FoundCommentsInFunction
    | FoundWriteContentToLocalFile Content.FoundWriteContentToLocalFile
    | FoundControlFlowPath Content.FoundControlFlowPath
