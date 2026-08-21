@@ -20,7 +20,7 @@
                 "properties": {
                     "foundAuthenticatedHttpPostHandlerRequestObjectMatches": {
                         "items": {
-                            "$ref": "#/components/schemas/FoundHttpPostHandlerRequestObjectMatch"
+                            "$ref": "#/components/schemas/FoundAuthenticatedHttpPostHandlerRequestObjectMatch"
                         },
                         "type": "array"
                     },
@@ -33,6 +33,33 @@
                 "required": [
                     "foundAuthenticatedHttpPostHandlerRequestObjectTotal",
                     "foundAuthenticatedHttpPostHandlerRequestObjectMatches"
+                ],
+                "type": "object"
+            },
+            "FoundAuthenticatedHttpPostHandlerRequestObjectMatch": {
+                "properties": {
+                    "foundAuthenticatedHttpPostHandlerAuthenticatingFunctionName": {
+                        "type": "string"
+                    },
+                    "foundAuthenticatedHttpPostHandlerHeaderKeyName": {
+                        "type": "string"
+                    },
+                    "foundAuthenticatedHttpPostHandlerLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "foundAuthenticatedHttpPostHandlerRequestObjectLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "foundAuthenticatedHttpPostHandlerRequestObjectMatchUrl": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "foundAuthenticatedHttpPostHandlerLocation",
+                    "foundAuthenticatedHttpPostHandlerRequestObjectLocation",
+                    "foundAuthenticatedHttpPostHandlerRequestObjectMatchUrl",
+                    "foundAuthenticatedHttpPostHandlerAuthenticatingFunctionName",
+                    "foundAuthenticatedHttpPostHandlerHeaderKeyName"
                 ],
                 "type": "object"
             },
