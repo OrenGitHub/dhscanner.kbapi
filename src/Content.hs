@@ -64,7 +64,35 @@ data FoundAuthenticatedHttpPostHandlerRequestObject
    = FoundAuthenticatedHttpPostHandlerRequestObject
      {
          foundAuthenticatedHttpPostHandlerRequestObjectTotal :: Word,
-         foundAuthenticatedHttpPostHandlerRequestObjectMatches :: [ FoundHttpPostHandlerRequestObjectMatch ]
+         foundAuthenticatedHttpPostHandlerRequestObjectMatches :: [ FoundAuthenticatedHttpPostHandlerRequestObjectMatch ]
+     }
+     deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
+
+-- | A match for an authenticated POST handler request object query.
+--
+-- Same shape as 'FoundHttpPostHandlerRequestObjectMatch', plus two
+-- structurally discovered pieces of metadata that identify /how/ the
+-- handler is authenticated :
+--
+-- * @foundAuthenticatedHttpPostHandlerAuthenticatingFunctionName@ \-
+--   the name of the callable that gates the handler ( e.g. tier-1
+--   catalog name @\'authenticateRequest\'@ ).
+--
+-- * @foundAuthenticatedHttpPostHandlerHeaderKeyName@ \-
+--   the string constant passed to @Request.headers.get( ... )@ inside
+--   that authenticating function ( e.g. @\'x-api-key\'@ ). Bound by
+--   the KB rule @utils_early_return_null_on_missing_request_header_value@.
+--   Intentionally /not/ named @ApiKey...@ \- other authentication styles
+--   ( bearer tokens, session cookies, custom headers ) all end up
+--   reading a header key too, so the field stays neutral.
+data FoundAuthenticatedHttpPostHandlerRequestObjectMatch
+   = FoundAuthenticatedHttpPostHandlerRequestObjectMatch
+     {
+         foundAuthenticatedHttpPostHandlerLocation :: Location,
+         foundAuthenticatedHttpPostHandlerRequestObjectLocation :: Location,
+         foundAuthenticatedHttpPostHandlerRequestObjectMatchUrl :: String,
+         foundAuthenticatedHttpPostHandlerAuthenticatingFunctionName :: String,
+         foundAuthenticatedHttpPostHandlerHeaderKeyName :: String
      }
      deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 
