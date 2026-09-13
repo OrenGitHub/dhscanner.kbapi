@@ -1,6 +1,44 @@
 {
     "components": {
         "schemas": {
+            "AuthEvidence": {
+                "oneOf": [
+                    {
+                        "properties": {
+                            "contents": {
+                                "type": "string"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "ByHeaderNullCheck"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "ByHeaderNullCheck",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "tag": {
+                                "enum": [
+                                    "ByAllButOneBadReturn"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag"
+                        ],
+                        "title": "ByAllButOneBadReturn",
+                        "type": "object"
+                    }
+                ]
+            },
             "Comment": {
                 "properties": {
                     "commentContent": {
@@ -38,10 +76,10 @@
             },
             "FoundAuthenticatedHttpGetHandlerRequestObjectMatch": {
                 "properties": {
-                    "foundAuthenticatedHttpGetHandlerAuthenticatingFunctionName": {
-                        "type": "string"
+                    "foundAuthenticatedHttpGetHandlerAuthEvidence": {
+                        "$ref": "#/components/schemas/AuthEvidence"
                     },
-                    "foundAuthenticatedHttpGetHandlerHeaderKeyName": {
+                    "foundAuthenticatedHttpGetHandlerAuthenticatingFunctionName": {
                         "type": "string"
                     },
                     "foundAuthenticatedHttpGetHandlerLocation": {
@@ -59,7 +97,7 @@
                     "foundAuthenticatedHttpGetHandlerRequestObjectLocation",
                     "foundAuthenticatedHttpGetHandlerRequestObjectMatchUrl",
                     "foundAuthenticatedHttpGetHandlerAuthenticatingFunctionName",
-                    "foundAuthenticatedHttpGetHandlerHeaderKeyName"
+                    "foundAuthenticatedHttpGetHandlerAuthEvidence"
                 ],
                 "type": "object"
             },
@@ -85,10 +123,10 @@
             },
             "FoundAuthenticatedHttpPostHandlerRequestObjectMatch": {
                 "properties": {
-                    "foundAuthenticatedHttpPostHandlerAuthenticatingFunctionName": {
-                        "type": "string"
+                    "foundAuthenticatedHttpPostHandlerAuthEvidence": {
+                        "$ref": "#/components/schemas/AuthEvidence"
                     },
-                    "foundAuthenticatedHttpPostHandlerHeaderKeyName": {
+                    "foundAuthenticatedHttpPostHandlerAuthenticatingFunctionName": {
                         "type": "string"
                     },
                     "foundAuthenticatedHttpPostHandlerLocation": {
@@ -106,7 +144,7 @@
                     "foundAuthenticatedHttpPostHandlerRequestObjectLocation",
                     "foundAuthenticatedHttpPostHandlerRequestObjectMatchUrl",
                     "foundAuthenticatedHttpPostHandlerAuthenticatingFunctionName",
-                    "foundAuthenticatedHttpPostHandlerHeaderKeyName"
+                    "foundAuthenticatedHttpPostHandlerAuthEvidence"
                 ],
                 "type": "object"
             },
