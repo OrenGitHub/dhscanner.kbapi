@@ -68,6 +68,38 @@ data FoundAuthenticatedHttpPostHandlerRequestObject
      }
      deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 
+-- | Evidence carrier for authenticated-handler classifications.
+--
+-- Same "one concept, N payload shapes" tagged-union pattern that
+-- 'Kbapi.Query' itself uses. Each constructor names a distinct
+-- structural recognition path in the KB and carries whatever
+-- payload that path can bind. New auth mechanisms are pure leaf
+-- additions here : add a constructor + a matching Prolog clause
+-- + one line in the queryengine decoder \- no existing consumer
+-- changes.
+--
+-- Current constructors :
+--
+-- * @ByHeaderNullCheck HeaderKey@ \- the authenticating function
+--   implements the strict @Request.headers.get( key ) ; if(!v)
+--   return null@ idiom. @HeaderKey@ is the header name string
+--   ( e.g. @\"x-api-key\"@ ). Bound by the KB rule
+--   @utils_early_return_null_on_missing_request_header_value@.
+--
+-- * @ByAllButOneBadReturn@ \- the authenticating function's body
+--   shape is "K-1 bad-http returns + 1 parser-injected fall-through"
+--   (e.g. formbricks @checkAuth@ : returns
+--   @responses.notAuthenticatedResponse()@ /
+--   @responses.unauthorizedResponse()@ in every failure path and
+--   falls through on success). No payload \- the evidence /is/ the
+--   shape, and the callable\'s name is already carried by
+--   @foundAuthenticatedHttpPostHandlerAuthenticatingFunctionName@
+--   ( or its GET twin ) on the enclosing match record.
+data AuthEvidence
+   = ByHeaderNullCheck String
+   | ByAllButOneBadReturn
+   deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
+
 -- | A match for an authenticated POST handler request object query.
 --
 -- Same shape as 'FoundHttpPostHandlerRequestObjectMatch', plus two
@@ -76,15 +108,14 @@ data FoundAuthenticatedHttpPostHandlerRequestObject
 --
 -- * @foundAuthenticatedHttpPostHandlerAuthenticatingFunctionName@ \-
 --   the name of the callable that gates the handler ( e.g. tier-1
---   catalog name @\'authenticateRequest\'@ ).
+--   catalog name @\'authenticateRequest\'@, or @\'checkAuth\'@ when
+--   the shape catalog fires ).
 --
--- * @foundAuthenticatedHttpPostHandlerHeaderKeyName@ \-
---   the string constant passed to @Request.headers.get( ... )@ inside
---   that authenticating function ( e.g. @\'x-api-key\'@ ). Bound by
---   the KB rule @utils_early_return_null_on_missing_request_header_value@.
---   Intentionally /not/ named @ApiKey...@ \- other authentication styles
---   ( bearer tokens, session cookies, custom headers ) all end up
---   reading a header key too, so the field stays neutral.
+-- * @foundAuthenticatedHttpPostHandlerAuthEvidence@ \-
+--   an 'AuthEvidence' tagged union describing /which/ structural
+--   recognition path bound this match, plus any mechanism-specific
+--   payload ( e.g. the header key for @ByHeaderNullCheck@ ). See the
+--   'AuthEvidence' haddock for the current constructors.
 data FoundAuthenticatedHttpPostHandlerRequestObjectMatch
    = FoundAuthenticatedHttpPostHandlerRequestObjectMatch
      {
@@ -92,7 +123,7 @@ data FoundAuthenticatedHttpPostHandlerRequestObjectMatch
          foundAuthenticatedHttpPostHandlerRequestObjectLocation :: Location,
          foundAuthenticatedHttpPostHandlerRequestObjectMatchUrl :: String,
          foundAuthenticatedHttpPostHandlerAuthenticatingFunctionName :: String,
-         foundAuthenticatedHttpPostHandlerHeaderKeyName :: String
+         foundAuthenticatedHttpPostHandlerAuthEvidence :: AuthEvidence
      }
      deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 
@@ -194,7 +225,7 @@ data FoundAuthenticatedHttpGetHandlerRequestObjectMatch
          foundAuthenticatedHttpGetHandlerRequestObjectLocation :: Location,
          foundAuthenticatedHttpGetHandlerRequestObjectMatchUrl :: String,
          foundAuthenticatedHttpGetHandlerAuthenticatingFunctionName :: String,
-         foundAuthenticatedHttpGetHandlerHeaderKeyName :: String
+         foundAuthenticatedHttpGetHandlerAuthEvidence :: AuthEvidence
      }
      deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 

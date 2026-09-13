@@ -32,6 +32,8 @@ instance ToSchema ConstStringsMatching
 instance ToSchema FoundConstStringsMatching
 instance ToSchema FoundConstStringMatch
 
+instance ToSchema AuthEvidence
+
 instance ToSchema UnauthenticatedHttpPostHandlerRequestObject
 instance ToSchema FoundUnauthenticatedHttpPostHandlerRequestObject
 instance ToSchema AuthenticatedHttpPostHandlerRequestObject
