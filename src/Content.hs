@@ -130,6 +130,74 @@ data FoundHttpGetHandlerRequestObjectMatch
      }
      deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 
+-- | Symmetric GET variant of 'UnauthenticatedHttpPostHandlerRequestObject'.
+-- Enumerates HTTP GET handlers whose bodies contain /no/ call to any
+-- recognized authenticating function (per the Prolog predicate
+-- @utils_unauthenticated_http_get_handler_request_object/3@ ).
+--
+-- Together with 'AuthenticatedHttpGetHandlerRequestObject' this is the
+-- GET half of the "first fork" the LLM agent hits : auth vs pre-auth
+-- endpoints. See the OWASP-IL 2026 talk notes ("first move" bridge
+-- slide) for the harness-side story.
+data UnauthenticatedHttpGetHandlerRequestObject
+   = UnauthenticatedHttpGetHandlerRequestObject
+     {
+         unauthenticatedHttpGetHandlerRequestObjectUrlParts :: [ String ],
+         unauthenticatedHttpGetHandlerRequestObjectLimit :: Word
+     }
+     deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
+
+-- | Result payload for 'UnauthenticatedHttpGetHandlerRequestObject'. The
+-- per-match shape reuses 'FoundHttpGetHandlerRequestObjectMatch' because
+-- an unauthenticated GET handler carries no auth metadata to surface --
+-- symmetric to how 'FoundUnauthenticatedHttpPostHandlerRequestObject'
+-- reuses 'FoundHttpPostHandlerRequestObjectMatch'.
+data FoundUnauthenticatedHttpGetHandlerRequestObject
+   = FoundUnauthenticatedHttpGetHandlerRequestObject
+     {
+         foundUnauthenticatedHttpGetHandlerRequestObjectTotal :: Word,
+         foundUnauthenticatedHttpGetHandlerRequestObjectMatches :: [ FoundHttpGetHandlerRequestObjectMatch ]
+     }
+     deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
+
+-- | Symmetric GET variant of 'AuthenticatedHttpPostHandlerRequestObject'.
+-- Enumerates HTTP GET handlers whose bodies contain a call to a
+-- recognized authenticating function that itself satisfies the strict
+-- "early-return-null on missing request-header value" structural gate.
+-- See @utils_authenticated_http_get_handler_request_object/5@ in
+-- utils.pl and the Prolog-side notes on the corresponding POST /5
+-- predicate.
+data AuthenticatedHttpGetHandlerRequestObject
+   = AuthenticatedHttpGetHandlerRequestObject
+     {
+         authenticatedHttpGetHandlerRequestObjectUrlParts :: [ String ],
+         authenticatedHttpGetHandlerRequestObjectLimit :: Word
+     }
+     deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
+
+data FoundAuthenticatedHttpGetHandlerRequestObject
+   = FoundAuthenticatedHttpGetHandlerRequestObject
+     {
+         foundAuthenticatedHttpGetHandlerRequestObjectTotal :: Word,
+         foundAuthenticatedHttpGetHandlerRequestObjectMatches :: [ FoundAuthenticatedHttpGetHandlerRequestObjectMatch ]
+     }
+     deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
+
+-- | A match for an authenticated GET handler request object query. Same
+-- shape as 'FoundAuthenticatedHttpPostHandlerRequestObjectMatch', with
+-- @GetHandler@ substituted for @PostHandler@ throughout the field
+-- naming to keep POST/GET results distinguishable at the JSON layer.
+data FoundAuthenticatedHttpGetHandlerRequestObjectMatch
+   = FoundAuthenticatedHttpGetHandlerRequestObjectMatch
+     {
+         foundAuthenticatedHttpGetHandlerLocation :: Location,
+         foundAuthenticatedHttpGetHandlerRequestObjectLocation :: Location,
+         foundAuthenticatedHttpGetHandlerRequestObjectMatchUrl :: String,
+         foundAuthenticatedHttpGetHandlerAuthenticatingFunctionName :: String,
+         foundAuthenticatedHttpGetHandlerHeaderKeyName :: String
+     }
+     deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
+
 data CommentsInFunction
    = CommentsInFunction
      {
