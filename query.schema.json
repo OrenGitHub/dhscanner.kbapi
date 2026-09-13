@@ -1,6 +1,26 @@
 {
     "components": {
         "schemas": {
+            "AuthenticatedHttpGetHandlerRequestObject": {
+                "properties": {
+                    "authenticatedHttpGetHandlerRequestObjectLimit": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "authenticatedHttpGetHandlerRequestObjectUrlParts": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "authenticatedHttpGetHandlerRequestObjectUrlParts",
+                    "authenticatedHttpGetHandlerRequestObjectLimit"
+                ],
+                "type": "object"
+            },
             "AuthenticatedHttpPostHandlerRequestObject": {
                 "properties": {
                     "authenticatedHttpPostHandlerRequestObjectLimit": {
@@ -195,6 +215,44 @@
                     {
                         "properties": {
                             "contents": {
+                                "$ref": "#/components/schemas/UnauthenticatedHttpGetHandlerRequestObject"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "UnauthenticatedHttpGetHandlerRequestObject"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "UnauthenticatedHttpGetHandlerRequestObject",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/AuthenticatedHttpGetHandlerRequestObject"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "AuthenticatedHttpGetHandlerRequestObject"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "AuthenticatedHttpGetHandlerRequestObject",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
                                 "$ref": "#/components/schemas/UnauthenticatedHttpPostHandlerRequestObject"
                             },
                             "tag": {
@@ -308,6 +366,26 @@
                     }
                 ]
             },
+            "UnauthenticatedHttpGetHandlerRequestObject": {
+                "properties": {
+                    "unauthenticatedHttpGetHandlerRequestObjectLimit": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "unauthenticatedHttpGetHandlerRequestObjectUrlParts": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "unauthenticatedHttpGetHandlerRequestObjectUrlParts",
+                    "unauthenticatedHttpGetHandlerRequestObjectLimit"
+                ],
+                "type": "object"
+            },
             "UnauthenticatedHttpPostHandlerRequestObject": {
                 "properties": {
                     "unauthenticatedHttpPostHandlerRequestObjectLimit": {
@@ -380,6 +458,44 @@
                 "contents"
             ],
             "title": "HttpGetHandlerRequestObject",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/UnauthenticatedHttpGetHandlerRequestObject"
+                },
+                "tag": {
+                    "enum": [
+                        "UnauthenticatedHttpGetHandlerRequestObject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "UnauthenticatedHttpGetHandlerRequestObject",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/AuthenticatedHttpGetHandlerRequestObject"
+                },
+                "tag": {
+                    "enum": [
+                        "AuthenticatedHttpGetHandlerRequestObject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "AuthenticatedHttpGetHandlerRequestObject",
             "type": "object"
         },
         {

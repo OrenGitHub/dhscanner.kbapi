@@ -16,6 +16,53 @@
                 ],
                 "type": "object"
             },
+            "FoundAuthenticatedHttpGetHandlerRequestObject": {
+                "properties": {
+                    "foundAuthenticatedHttpGetHandlerRequestObjectMatches": {
+                        "items": {
+                            "$ref": "#/components/schemas/FoundAuthenticatedHttpGetHandlerRequestObjectMatch"
+                        },
+                        "type": "array"
+                    },
+                    "foundAuthenticatedHttpGetHandlerRequestObjectTotal": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "foundAuthenticatedHttpGetHandlerRequestObjectTotal",
+                    "foundAuthenticatedHttpGetHandlerRequestObjectMatches"
+                ],
+                "type": "object"
+            },
+            "FoundAuthenticatedHttpGetHandlerRequestObjectMatch": {
+                "properties": {
+                    "foundAuthenticatedHttpGetHandlerAuthenticatingFunctionName": {
+                        "type": "string"
+                    },
+                    "foundAuthenticatedHttpGetHandlerHeaderKeyName": {
+                        "type": "string"
+                    },
+                    "foundAuthenticatedHttpGetHandlerLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "foundAuthenticatedHttpGetHandlerRequestObjectLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "foundAuthenticatedHttpGetHandlerRequestObjectMatchUrl": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "foundAuthenticatedHttpGetHandlerLocation",
+                    "foundAuthenticatedHttpGetHandlerRequestObjectLocation",
+                    "foundAuthenticatedHttpGetHandlerRequestObjectMatchUrl",
+                    "foundAuthenticatedHttpGetHandlerAuthenticatingFunctionName",
+                    "foundAuthenticatedHttpGetHandlerHeaderKeyName"
+                ],
+                "type": "object"
+            },
             "FoundAuthenticatedHttpPostHandlerRequestObject": {
                 "properties": {
                     "foundAuthenticatedHttpPostHandlerRequestObjectMatches": {
@@ -206,6 +253,26 @@
                 ],
                 "type": "object"
             },
+            "FoundUnauthenticatedHttpGetHandlerRequestObject": {
+                "properties": {
+                    "foundUnauthenticatedHttpGetHandlerRequestObjectMatches": {
+                        "items": {
+                            "$ref": "#/components/schemas/FoundHttpGetHandlerRequestObjectMatch"
+                        },
+                        "type": "array"
+                    },
+                    "foundUnauthenticatedHttpGetHandlerRequestObjectTotal": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "foundUnauthenticatedHttpGetHandlerRequestObjectTotal",
+                    "foundUnauthenticatedHttpGetHandlerRequestObjectMatches"
+                ],
+                "type": "object"
+            },
             "FoundUnauthenticatedHttpPostHandlerRequestObject": {
                 "properties": {
                     "foundUnauthenticatedHttpPostHandlerRequestObjectMatches": {
@@ -319,6 +386,44 @@
                             "contents"
                         ],
                         "title": "FoundHttpGetHandlerRequestObject",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/FoundUnauthenticatedHttpGetHandlerRequestObject"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundUnauthenticatedHttpGetHandlerRequestObject"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundUnauthenticatedHttpGetHandlerRequestObject",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/FoundAuthenticatedHttpGetHandlerRequestObject"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundAuthenticatedHttpGetHandlerRequestObject"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundAuthenticatedHttpGetHandlerRequestObject",
                         "type": "object"
                     },
                     {
@@ -476,6 +581,44 @@
                 "contents"
             ],
             "title": "FoundHttpGetHandlerRequestObject",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/FoundUnauthenticatedHttpGetHandlerRequestObject"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundUnauthenticatedHttpGetHandlerRequestObject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundUnauthenticatedHttpGetHandlerRequestObject",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/FoundAuthenticatedHttpGetHandlerRequestObject"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundAuthenticatedHttpGetHandlerRequestObject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundAuthenticatedHttpGetHandlerRequestObject",
             "type": "object"
         },
         {
