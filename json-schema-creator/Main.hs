@@ -51,6 +51,13 @@ instance ToSchema AuthenticatedHttpGetHandlerRequestObject
 instance ToSchema FoundAuthenticatedHttpGetHandlerRequestObject
 instance ToSchema FoundAuthenticatedHttpGetHandlerRequestObjectMatch
 
+instance ToSchema UnauthenticatedHttpPutHandlerRequestObject
+instance ToSchema FoundUnauthenticatedHttpPutHandlerRequestObject
+instance ToSchema AuthenticatedHttpPutHandlerRequestObject
+instance ToSchema FoundAuthenticatedHttpPutHandlerRequestObject
+instance ToSchema FoundAuthenticatedHttpPutHandlerRequestObjectMatch
+instance ToSchema FoundHttpPutHandlerRequestObjectMatch
+
 instance ToSchema CommentsInFunction
 instance ToSchema FoundCommentsInFunction
 instance ToSchema Comment
@@ -63,6 +70,18 @@ instance ToSchema FoundControlFlowPath
 
 instance ToSchema DataFlowPath
 instance ToSchema FoundDataFlowPath
+
+instance ToSchema SqlSinkKind
+instance ToSchema SqlSinkKindCount
+instance ToSchema ControlFlowReachableSqlSink
+instance ToSchema FoundControlFlowReachableSqlSink
+instance ToSchema FoundControlFlowReachableSqlSinkMatch
+
+instance ToSchema FileActionKind
+instance ToSchema FileActionKindCount
+instance ToSchema ControlFlowReachableFileActionSink
+instance ToSchema FoundControlFlowReachableFileActionSink
+instance ToSchema FoundControlFlowReachableFileActionSinkMatch
 
 schemaWithDefs :: ToSchema a => Proxy a -> Value
 schemaWithDefs p =

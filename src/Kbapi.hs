@@ -57,10 +57,14 @@ data Query
    | AuthenticatedHttpGetHandlerRequestObject Content.AuthenticatedHttpGetHandlerRequestObject
    | UnauthenticatedHttpPostHandlerRequestObject Content.UnauthenticatedHttpPostHandlerRequestObject
    | AuthenticatedHttpPostHandlerRequestObject Content.AuthenticatedHttpPostHandlerRequestObject
+   | UnauthenticatedHttpPutHandlerRequestObject Content.UnauthenticatedHttpPutHandlerRequestObject
+   | AuthenticatedHttpPutHandlerRequestObject Content.AuthenticatedHttpPutHandlerRequestObject
    | CommentsInFunction Content.CommentsInFunction
    | WriteContentToLocalFile Content.WriteContentToLocalFile
    | ControlFlowPath Content.ControlFlowPath
    | DataFlowPath Content.DataFlowPath
+   | ControlFlowReachableSqlSink Content.ControlFlowReachableSqlSink
+   | ControlFlowReachableFileActionSink Content.ControlFlowReachableFileActionSink
    deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 
 data QueryResult
@@ -70,8 +74,12 @@ data QueryResult
    | FoundAuthenticatedHttpGetHandlerRequestObject Content.FoundAuthenticatedHttpGetHandlerRequestObject
    | FoundUnauthenticatedHttpPostHandlerRequestObject Content.FoundUnauthenticatedHttpPostHandlerRequestObject
    | FoundAuthenticatedHttpPostHandlerRequestObject Content.FoundAuthenticatedHttpPostHandlerRequestObject
+   | FoundUnauthenticatedHttpPutHandlerRequestObject Content.FoundUnauthenticatedHttpPutHandlerRequestObject
+   | FoundAuthenticatedHttpPutHandlerRequestObject Content.FoundAuthenticatedHttpPutHandlerRequestObject
    | FoundCommentsInFunction Content.FoundCommentsInFunction
    | FoundWriteContentToLocalFile Content.FoundWriteContentToLocalFile
    | FoundControlFlowPath Content.FoundControlFlowPath
    | FoundDataFlowPath Content.FoundDataFlowPath
+   | FoundControlFlowReachableSqlSink Content.FoundControlFlowReachableSqlSink
+   | FoundControlFlowReachableFileActionSink Content.FoundControlFlowReachableFileActionSink
    deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
