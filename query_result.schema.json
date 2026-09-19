@@ -54,6 +54,29 @@
                 ],
                 "type": "object"
             },
+            "FileActionKind": {
+                "enum": [
+                    "FileWrite"
+                ],
+                "type": "string"
+            },
+            "FileActionKindCount": {
+                "properties": {
+                    "fileActionKindCountCount": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "fileActionKindCountKind": {
+                        "$ref": "#/components/schemas/FileActionKind"
+                    }
+                },
+                "required": [
+                    "fileActionKindCountKind",
+                    "fileActionKindCountCount"
+                ],
+                "type": "object"
+            },
             "FoundAuthenticatedHttpGetHandlerRequestObject": {
                 "properties": {
                     "foundAuthenticatedHttpGetHandlerRequestObjectMatches": {
@@ -148,6 +171,53 @@
                 ],
                 "type": "object"
             },
+            "FoundAuthenticatedHttpPutHandlerRequestObject": {
+                "properties": {
+                    "foundAuthenticatedHttpPutHandlerRequestObjectMatches": {
+                        "items": {
+                            "$ref": "#/components/schemas/FoundAuthenticatedHttpPutHandlerRequestObjectMatch"
+                        },
+                        "type": "array"
+                    },
+                    "foundAuthenticatedHttpPutHandlerRequestObjectTotal": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "foundAuthenticatedHttpPutHandlerRequestObjectTotal",
+                    "foundAuthenticatedHttpPutHandlerRequestObjectMatches"
+                ],
+                "type": "object"
+            },
+            "FoundAuthenticatedHttpPutHandlerRequestObjectMatch": {
+                "properties": {
+                    "foundAuthenticatedHttpPutHandlerAuthEvidence": {
+                        "$ref": "#/components/schemas/AuthEvidence"
+                    },
+                    "foundAuthenticatedHttpPutHandlerAuthenticatingFunctionName": {
+                        "type": "string"
+                    },
+                    "foundAuthenticatedHttpPutHandlerLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "foundAuthenticatedHttpPutHandlerRequestObjectLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "foundAuthenticatedHttpPutHandlerRequestObjectMatchUrl": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "foundAuthenticatedHttpPutHandlerLocation",
+                    "foundAuthenticatedHttpPutHandlerRequestObjectLocation",
+                    "foundAuthenticatedHttpPutHandlerRequestObjectMatchUrl",
+                    "foundAuthenticatedHttpPutHandlerAuthenticatingFunctionName",
+                    "foundAuthenticatedHttpPutHandlerAuthEvidence"
+                ],
+                "type": "object"
+            },
             "FoundCommentsInFunction": {
                 "properties": {
                     "foundCommentsInFunctionComments": {
@@ -222,6 +292,98 @@
                 },
                 "type": "object"
             },
+            "FoundControlFlowReachableFileActionSink": {
+                "properties": {
+                    "foundControlFlowReachableFileActionSinkCountsByKind": {
+                        "items": {
+                            "$ref": "#/components/schemas/FileActionKindCount"
+                        },
+                        "type": "array"
+                    },
+                    "foundControlFlowReachableFileActionSinkMatches": {
+                        "items": {
+                            "$ref": "#/components/schemas/FoundControlFlowReachableFileActionSinkMatch"
+                        },
+                        "type": "array"
+                    },
+                    "foundControlFlowReachableFileActionSinkTotal": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "foundControlFlowReachableFileActionSinkTotal",
+                    "foundControlFlowReachableFileActionSinkCountsByKind",
+                    "foundControlFlowReachableFileActionSinkMatches"
+                ],
+                "type": "object"
+            },
+            "FoundControlFlowReachableFileActionSinkMatch": {
+                "properties": {
+                    "foundControlFlowReachableFileActionSinkMatchKind": {
+                        "$ref": "#/components/schemas/FileActionKind"
+                    },
+                    "foundControlFlowReachableFileActionSinkMatchLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "foundControlFlowReachableFileActionSinkMatchQualifiedName": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "foundControlFlowReachableFileActionSinkMatchLocation",
+                    "foundControlFlowReachableFileActionSinkMatchQualifiedName",
+                    "foundControlFlowReachableFileActionSinkMatchKind"
+                ],
+                "type": "object"
+            },
+            "FoundControlFlowReachableSqlSink": {
+                "properties": {
+                    "foundControlFlowReachableSqlSinkCountsByKind": {
+                        "items": {
+                            "$ref": "#/components/schemas/SqlSinkKindCount"
+                        },
+                        "type": "array"
+                    },
+                    "foundControlFlowReachableSqlSinkMatches": {
+                        "items": {
+                            "$ref": "#/components/schemas/FoundControlFlowReachableSqlSinkMatch"
+                        },
+                        "type": "array"
+                    },
+                    "foundControlFlowReachableSqlSinkTotal": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "foundControlFlowReachableSqlSinkTotal",
+                    "foundControlFlowReachableSqlSinkCountsByKind",
+                    "foundControlFlowReachableSqlSinkMatches"
+                ],
+                "type": "object"
+            },
+            "FoundControlFlowReachableSqlSinkMatch": {
+                "properties": {
+                    "foundControlFlowReachableSqlSinkMatchKind": {
+                        "$ref": "#/components/schemas/SqlSinkKind"
+                    },
+                    "foundControlFlowReachableSqlSinkMatchLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "foundControlFlowReachableSqlSinkMatchQualifiedName": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "foundControlFlowReachableSqlSinkMatchLocation",
+                    "foundControlFlowReachableSqlSinkMatchQualifiedName",
+                    "foundControlFlowReachableSqlSinkMatchKind"
+                ],
+                "type": "object"
+            },
             "FoundDataFlowPath": {
                 "properties": {
                     "foundDataFlowPathPath": {
@@ -291,6 +453,25 @@
                 ],
                 "type": "object"
             },
+            "FoundHttpPutHandlerRequestObjectMatch": {
+                "properties": {
+                    "foundHttpPutHandlerLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "foundHttpPutHandlerRequestObjectLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "foundHttpPutHandlerRequestObjectMatchUrl": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "foundHttpPutHandlerLocation",
+                    "foundHttpPutHandlerRequestObjectLocation",
+                    "foundHttpPutHandlerRequestObjectMatchUrl"
+                ],
+                "type": "object"
+            },
             "FoundUnauthenticatedHttpGetHandlerRequestObject": {
                 "properties": {
                     "foundUnauthenticatedHttpGetHandlerRequestObjectMatches": {
@@ -328,6 +509,26 @@
                 "required": [
                     "foundUnauthenticatedHttpPostHandlerRequestObjectTotal",
                     "foundUnauthenticatedHttpPostHandlerRequestObjectMatches"
+                ],
+                "type": "object"
+            },
+            "FoundUnauthenticatedHttpPutHandlerRequestObject": {
+                "properties": {
+                    "foundUnauthenticatedHttpPutHandlerRequestObjectMatches": {
+                        "items": {
+                            "$ref": "#/components/schemas/FoundHttpPutHandlerRequestObjectMatch"
+                        },
+                        "type": "array"
+                    },
+                    "foundUnauthenticatedHttpPutHandlerRequestObjectTotal": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "foundUnauthenticatedHttpPutHandlerRequestObjectTotal",
+                    "foundUnauthenticatedHttpPutHandlerRequestObjectMatches"
                 ],
                 "type": "object"
             },
@@ -505,6 +706,44 @@
                     {
                         "properties": {
                             "contents": {
+                                "$ref": "#/components/schemas/FoundUnauthenticatedHttpPutHandlerRequestObject"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundUnauthenticatedHttpPutHandlerRequestObject"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundUnauthenticatedHttpPutHandlerRequestObject",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/FoundAuthenticatedHttpPutHandlerRequestObject"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundAuthenticatedHttpPutHandlerRequestObject"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundAuthenticatedHttpPutHandlerRequestObject",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
                                 "$ref": "#/components/schemas/FoundCommentsInFunction"
                             },
                             "tag": {
@@ -577,8 +816,70 @@
                         ],
                         "title": "FoundDataFlowPath",
                         "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/FoundControlFlowReachableSqlSink"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundControlFlowReachableSqlSink"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundControlFlowReachableSqlSink",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/FoundControlFlowReachableFileActionSink"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundControlFlowReachableFileActionSink"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundControlFlowReachableFileActionSink",
+                        "type": "object"
                     }
                 ]
+            },
+            "SqlSinkKind": {
+                "enum": [
+                    "SqlPreparedStatement",
+                    "SqlRaw"
+                ],
+                "type": "string"
+            },
+            "SqlSinkKindCount": {
+                "properties": {
+                    "sqlSinkKindCountCount": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "sqlSinkKindCountKind": {
+                        "$ref": "#/components/schemas/SqlSinkKind"
+                    }
+                },
+                "required": [
+                    "sqlSinkKindCountKind",
+                    "sqlSinkKindCountCount"
+                ],
+                "type": "object"
             }
         }
     },
@@ -700,6 +1001,44 @@
         {
             "properties": {
                 "contents": {
+                    "$ref": "#/components/schemas/FoundUnauthenticatedHttpPutHandlerRequestObject"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundUnauthenticatedHttpPutHandlerRequestObject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundUnauthenticatedHttpPutHandlerRequestObject",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/FoundAuthenticatedHttpPutHandlerRequestObject"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundAuthenticatedHttpPutHandlerRequestObject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundAuthenticatedHttpPutHandlerRequestObject",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
                     "$ref": "#/components/schemas/FoundCommentsInFunction"
                 },
                 "tag": {
@@ -771,6 +1110,44 @@
                 "contents"
             ],
             "title": "FoundDataFlowPath",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/FoundControlFlowReachableSqlSink"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundControlFlowReachableSqlSink"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundControlFlowReachableSqlSink",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/FoundControlFlowReachableFileActionSink"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundControlFlowReachableFileActionSink"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundControlFlowReachableFileActionSink",
             "type": "object"
         }
     ]

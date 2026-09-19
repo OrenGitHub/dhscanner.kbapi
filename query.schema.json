@@ -41,6 +41,26 @@
                 ],
                 "type": "object"
             },
+            "AuthenticatedHttpPutHandlerRequestObject": {
+                "properties": {
+                    "authenticatedHttpPutHandlerRequestObjectLimit": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "authenticatedHttpPutHandlerRequestObjectUrlParts": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "authenticatedHttpPutHandlerRequestObjectUrlParts",
+                    "authenticatedHttpPutHandlerRequestObjectLimit"
+                ],
+                "type": "object"
+            },
             "CommentsInFunction": {
                 "properties": {
                     "commentsInFunctionLimit": {
@@ -93,6 +113,52 @@
                     "controlFlowPathCaller",
                     "controlFlowPathCallee",
                     "controlFlowPathLimitNumHops"
+                ],
+                "type": "object"
+            },
+            "ControlFlowReachableFileActionSink": {
+                "properties": {
+                    "controlFlowReachableFileActionSinkFrom": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "controlFlowReachableFileActionSinkLimit": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "controlFlowReachableFileActionSinkLimitNumHops": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "controlFlowReachableFileActionSinkFrom",
+                    "controlFlowReachableFileActionSinkLimitNumHops",
+                    "controlFlowReachableFileActionSinkLimit"
+                ],
+                "type": "object"
+            },
+            "ControlFlowReachableSqlSink": {
+                "properties": {
+                    "controlFlowReachableSqlSinkFrom": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "controlFlowReachableSqlSinkLimit": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "controlFlowReachableSqlSinkLimitNumHops": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "controlFlowReachableSqlSinkFrom",
+                    "controlFlowReachableSqlSinkLimitNumHops",
+                    "controlFlowReachableSqlSinkLimit"
                 ],
                 "type": "object"
             },
@@ -291,6 +357,44 @@
                     {
                         "properties": {
                             "contents": {
+                                "$ref": "#/components/schemas/UnauthenticatedHttpPutHandlerRequestObject"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "UnauthenticatedHttpPutHandlerRequestObject"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "UnauthenticatedHttpPutHandlerRequestObject",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/AuthenticatedHttpPutHandlerRequestObject"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "AuthenticatedHttpPutHandlerRequestObject"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "AuthenticatedHttpPutHandlerRequestObject",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
                                 "$ref": "#/components/schemas/CommentsInFunction"
                             },
                             "tag": {
@@ -363,6 +467,44 @@
                         ],
                         "title": "DataFlowPath",
                         "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/ControlFlowReachableSqlSink"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "ControlFlowReachableSqlSink"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "ControlFlowReachableSqlSink",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/ControlFlowReachableFileActionSink"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "ControlFlowReachableFileActionSink"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "ControlFlowReachableFileActionSink",
+                        "type": "object"
                     }
                 ]
             },
@@ -403,6 +545,26 @@
                 "required": [
                     "unauthenticatedHttpPostHandlerRequestObjectUrlParts",
                     "unauthenticatedHttpPostHandlerRequestObjectLimit"
+                ],
+                "type": "object"
+            },
+            "UnauthenticatedHttpPutHandlerRequestObject": {
+                "properties": {
+                    "unauthenticatedHttpPutHandlerRequestObjectLimit": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "unauthenticatedHttpPutHandlerRequestObjectUrlParts": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "unauthenticatedHttpPutHandlerRequestObjectUrlParts",
+                    "unauthenticatedHttpPutHandlerRequestObjectLimit"
                 ],
                 "type": "object"
             },
@@ -539,6 +701,44 @@
         {
             "properties": {
                 "contents": {
+                    "$ref": "#/components/schemas/UnauthenticatedHttpPutHandlerRequestObject"
+                },
+                "tag": {
+                    "enum": [
+                        "UnauthenticatedHttpPutHandlerRequestObject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "UnauthenticatedHttpPutHandlerRequestObject",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/AuthenticatedHttpPutHandlerRequestObject"
+                },
+                "tag": {
+                    "enum": [
+                        "AuthenticatedHttpPutHandlerRequestObject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "AuthenticatedHttpPutHandlerRequestObject",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
                     "$ref": "#/components/schemas/CommentsInFunction"
                 },
                 "tag": {
@@ -610,6 +810,44 @@
                 "contents"
             ],
             "title": "DataFlowPath",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/ControlFlowReachableSqlSink"
+                },
+                "tag": {
+                    "enum": [
+                        "ControlFlowReachableSqlSink"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "ControlFlowReachableSqlSink",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/ControlFlowReachableFileActionSink"
+                },
+                "tag": {
+                    "enum": [
+                        "ControlFlowReachableFileActionSink"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "ControlFlowReachableFileActionSink",
             "type": "object"
         }
     ]
