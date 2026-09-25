@@ -1,4 +1,4 @@
-FROM haskell:9.6.7 AS builder
+FROM haskell:9.14.1 AS builder
 
 WORKDIR /build
 
