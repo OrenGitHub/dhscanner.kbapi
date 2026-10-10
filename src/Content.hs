@@ -514,8 +514,7 @@ data ControlFlowReachableFileActionSink
 -- * @FileWrite@ \- content-writing sinks ( create \/ overwrite \/
 --   append file contents ).
 --
--- * @FileRead@ \- content-reading sinks ( whole-file reads where
---   the caller-supplied path controls what is read back ).
+-- Reserved for future leaf additions :
 --
 -- * @FileDelete@ \- removal sinks ( unlink \/ rmdir \/ recursive
 --   remove ).
