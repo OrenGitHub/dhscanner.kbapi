@@ -56,7 +56,9 @@
             },
             "FileActionKind": {
                 "enum": [
-                    "FileWrite"
+                    "FileWrite",
+                    "FileRead",
+                    "FileDelete"
                 ],
                 "type": "string"
             },
