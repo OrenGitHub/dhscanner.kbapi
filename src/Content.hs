@@ -514,12 +514,23 @@ data ControlFlowReachableFileActionSink
 -- * @FileWrite@ \- content-writing sinks ( create \/ overwrite \/
 --   append file contents ).
 --
--- Reserved for future leaf additions :
+-- * @FileRead@ \- content-reading sinks ( whole-file reads where
+--   the caller-supplied path controls what is read back ).
 --
 -- * @FileDelete@ \- removal sinks ( unlink \/ rmdir \/ recursive
 --   remove ).
+--
+-- Note : keep at least two nullary constructors on this type \-
+-- aeson's default @Generic ToJSON@ encoding for a single-constructor
+-- nullary enum collapses to an empty array ( because it is treated
+-- as a zero-field product ) rather than the enum string. The
+-- generated OpenAPI schema at @query_result.schema.json@ expects
+-- @\"type\": \"string\"@ ; multi-constructor keeps aeson and the
+-- schema in agreement without needing a hand-written instance.
 data FileActionKind
    = FileWrite
+   | FileRead
+   | FileDelete
    deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 
 -- | Per-kind file-action sink count. Symmetric to 'SqlSinkKindCount'.
