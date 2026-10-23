@@ -28,7 +28,7 @@ description:
     fundamental modifications to the structure or specification
     of code facts.
 
-version:            1.1.4
+version:            1.2.0
 license:            GPL-3.0-only
 license-file:       LICENSE
 author:             OrenGitHub
@@ -49,7 +49,12 @@ library
 
     exposed-modules:
         Kbapi,
-        Content
+        WithHttpHandlers,
+        WithControlFlowReachableSinks,
+        WithConstStrings,
+        WithComments,
+        WithDataFlowPath,
+        WithSanitizers
 
     build-depends:
         aeson >= 2.2 && < 2.4,
