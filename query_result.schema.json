@@ -39,6 +39,24 @@
                     }
                 ]
             },
+            "Authentication": {
+                "properties": {
+                    "authenticationEvidence": {
+                        "$ref": "#/components/schemas/AuthEvidence"
+                    },
+                    "authenticationFunctionName": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "authenticationFunctionName",
+                    "authenticationEvidence"
+                ],
+                "type": "object"
+            },
+            "ClassName": {
+                "type": "string"
+            },
             "Comment": {
                 "properties": {
                     "commentContent": {
@@ -54,507 +72,266 @@
                 ],
                 "type": "object"
             },
-            "FileActionKind": {
+            "CookieValue": {
+                "properties": {
+                    "colEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "colStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "filename": {
+                        "type": "string"
+                    },
+                    "lineEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "lineStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "filename",
+                    "lineStart",
+                    "lineEnd",
+                    "colStart",
+                    "colEnd"
+                ],
+                "type": "object"
+            },
+            "FlowStep": {
+                "properties": {
+                    "flowStepLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "flowStepQualifiedName": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "flowStepLocation"
+                ],
+                "type": "object"
+            },
+            "FunctionName": {
+                "type": "string"
+            },
+            "HttpHandler": {
+                "properties": {
+                    "httpHandlerAuth": {
+                        "$ref": "#/components/schemas/Authentication"
+                    },
+                    "httpHandlerDef": {
+                        "$ref": "#/components/schemas/HttpHandlerDef"
+                    },
+                    "httpHandlerLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "httpHandlerUrl": {
+                        "type": "string"
+                    },
+                    "httpHandlerUserInputs": {
+                        "items": {
+                            "$ref": "#/components/schemas/UserInput"
+                        },
+                        "type": "array"
+                    },
+                    "httpHandlerVerb": {
+                        "$ref": "#/components/schemas/HttpVerb"
+                    }
+                },
+                "required": [
+                    "httpHandlerVerb",
+                    "httpHandlerLocation",
+                    "httpHandlerDef",
+                    "httpHandlerUrl",
+                    "httpHandlerUserInputs"
+                ],
+                "type": "object"
+            },
+            "HttpHandlerDef": {
+                "oneOf": [
+                    {
+                        "properties": {
+                            "contents": {
+                                "items": [
+                                    {
+                                        "$ref": "#/components/schemas/MethodName"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ClassName"
+                                    }
+                                ],
+                                "maxItems": 2,
+                                "minItems": 2,
+                                "type": "array"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "MethodOfClass"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "MethodOfClass",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/FunctionName"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "NamedFunction"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "NamedFunction",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "tag": {
+                                "enum": [
+                                    "AnonymousFunction"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag"
+                        ],
+                        "title": "AnonymousFunction",
+                        "type": "object"
+                    }
+                ]
+            },
+            "HttpVerb": {
                 "enum": [
-                    "FileWrite",
-                    "FileRead",
-                    "FileDelete"
+                    "Get",
+                    "Post",
+                    "Put",
+                    "Delete",
+                    "Patch"
                 ],
                 "type": "string"
             },
-            "FileActionKindCount": {
+            "IfThenElse": {
                 "properties": {
-                    "fileActionKindCountCount": {
+                    "cond": {
+                        "$ref": "#/components/schemas/PartCall"
+                    },
+                    "elsePart": {
+                        "items": {
+                            "$ref": "#/components/schemas/PartCall"
+                        },
+                        "type": "array"
+                    },
+                    "thenPart": {
+                        "items": {
+                            "$ref": "#/components/schemas/PartCall"
+                        },
+                        "type": "array"
+                    },
+                    "userInputArgIndex": {
                         "maximum": 1.8446744073709551615e19,
                         "minimum": 0,
                         "type": "integer"
                     },
-                    "fileActionKindCountKind": {
-                        "$ref": "#/components/schemas/FileActionKind"
-                    }
-                },
-                "required": [
-                    "fileActionKindCountKind",
-                    "fileActionKindCountCount"
-                ],
-                "type": "object"
-            },
-            "FoundAuthenticatedHttpGetHandlerRequestObject": {
-                "properties": {
-                    "foundAuthenticatedHttpGetHandlerRequestObjectMatches": {
+                    "userInputFlow": {
                         "items": {
-                            "$ref": "#/components/schemas/FoundAuthenticatedHttpGetHandlerRequestObjectMatch"
-                        },
-                        "type": "array"
-                    },
-                    "foundAuthenticatedHttpGetHandlerRequestObjectTotal": {
-                        "maximum": 1.8446744073709551615e19,
-                        "minimum": 0,
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "foundAuthenticatedHttpGetHandlerRequestObjectTotal",
-                    "foundAuthenticatedHttpGetHandlerRequestObjectMatches"
-                ],
-                "type": "object"
-            },
-            "FoundAuthenticatedHttpGetHandlerRequestObjectMatch": {
-                "properties": {
-                    "foundAuthenticatedHttpGetHandlerAuthEvidence": {
-                        "$ref": "#/components/schemas/AuthEvidence"
-                    },
-                    "foundAuthenticatedHttpGetHandlerAuthenticatingFunctionName": {
-                        "type": "string"
-                    },
-                    "foundAuthenticatedHttpGetHandlerLocation": {
-                        "$ref": "#/components/schemas/Location"
-                    },
-                    "foundAuthenticatedHttpGetHandlerRequestObjectLocation": {
-                        "$ref": "#/components/schemas/Location"
-                    },
-                    "foundAuthenticatedHttpGetHandlerRequestObjectMatchUrl": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "foundAuthenticatedHttpGetHandlerLocation",
-                    "foundAuthenticatedHttpGetHandlerRequestObjectLocation",
-                    "foundAuthenticatedHttpGetHandlerRequestObjectMatchUrl",
-                    "foundAuthenticatedHttpGetHandlerAuthenticatingFunctionName",
-                    "foundAuthenticatedHttpGetHandlerAuthEvidence"
-                ],
-                "type": "object"
-            },
-            "FoundAuthenticatedHttpPostHandlerRequestObject": {
-                "properties": {
-                    "foundAuthenticatedHttpPostHandlerRequestObjectMatches": {
-                        "items": {
-                            "$ref": "#/components/schemas/FoundAuthenticatedHttpPostHandlerRequestObjectMatch"
-                        },
-                        "type": "array"
-                    },
-                    "foundAuthenticatedHttpPostHandlerRequestObjectTotal": {
-                        "maximum": 1.8446744073709551615e19,
-                        "minimum": 0,
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "foundAuthenticatedHttpPostHandlerRequestObjectTotal",
-                    "foundAuthenticatedHttpPostHandlerRequestObjectMatches"
-                ],
-                "type": "object"
-            },
-            "FoundAuthenticatedHttpPostHandlerRequestObjectMatch": {
-                "properties": {
-                    "foundAuthenticatedHttpPostHandlerAuthEvidence": {
-                        "$ref": "#/components/schemas/AuthEvidence"
-                    },
-                    "foundAuthenticatedHttpPostHandlerAuthenticatingFunctionName": {
-                        "type": "string"
-                    },
-                    "foundAuthenticatedHttpPostHandlerLocation": {
-                        "$ref": "#/components/schemas/Location"
-                    },
-                    "foundAuthenticatedHttpPostHandlerRequestObjectLocation": {
-                        "$ref": "#/components/schemas/Location"
-                    },
-                    "foundAuthenticatedHttpPostHandlerRequestObjectMatchUrl": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "foundAuthenticatedHttpPostHandlerLocation",
-                    "foundAuthenticatedHttpPostHandlerRequestObjectLocation",
-                    "foundAuthenticatedHttpPostHandlerRequestObjectMatchUrl",
-                    "foundAuthenticatedHttpPostHandlerAuthenticatingFunctionName",
-                    "foundAuthenticatedHttpPostHandlerAuthEvidence"
-                ],
-                "type": "object"
-            },
-            "FoundAuthenticatedHttpPutHandlerRequestObject": {
-                "properties": {
-                    "foundAuthenticatedHttpPutHandlerRequestObjectMatches": {
-                        "items": {
-                            "$ref": "#/components/schemas/FoundAuthenticatedHttpPutHandlerRequestObjectMatch"
-                        },
-                        "type": "array"
-                    },
-                    "foundAuthenticatedHttpPutHandlerRequestObjectTotal": {
-                        "maximum": 1.8446744073709551615e19,
-                        "minimum": 0,
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "foundAuthenticatedHttpPutHandlerRequestObjectTotal",
-                    "foundAuthenticatedHttpPutHandlerRequestObjectMatches"
-                ],
-                "type": "object"
-            },
-            "FoundAuthenticatedHttpPutHandlerRequestObjectMatch": {
-                "properties": {
-                    "foundAuthenticatedHttpPutHandlerAuthEvidence": {
-                        "$ref": "#/components/schemas/AuthEvidence"
-                    },
-                    "foundAuthenticatedHttpPutHandlerAuthenticatingFunctionName": {
-                        "type": "string"
-                    },
-                    "foundAuthenticatedHttpPutHandlerLocation": {
-                        "$ref": "#/components/schemas/Location"
-                    },
-                    "foundAuthenticatedHttpPutHandlerRequestObjectLocation": {
-                        "$ref": "#/components/schemas/Location"
-                    },
-                    "foundAuthenticatedHttpPutHandlerRequestObjectMatchUrl": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "foundAuthenticatedHttpPutHandlerLocation",
-                    "foundAuthenticatedHttpPutHandlerRequestObjectLocation",
-                    "foundAuthenticatedHttpPutHandlerRequestObjectMatchUrl",
-                    "foundAuthenticatedHttpPutHandlerAuthenticatingFunctionName",
-                    "foundAuthenticatedHttpPutHandlerAuthEvidence"
-                ],
-                "type": "object"
-            },
-            "FoundCommentsInFunction": {
-                "properties": {
-                    "foundCommentsInFunctionComments": {
-                        "items": {
-                            "$ref": "#/components/schemas/Comment"
-                        },
-                        "type": "array"
-                    },
-                    "foundCommentsInFunctionLocation": {
-                        "$ref": "#/components/schemas/Location"
-                    },
-                    "foundCommentsInFunctionTotal": {
-                        "maximum": 1.8446744073709551615e19,
-                        "minimum": 0,
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "foundCommentsInFunctionLocation",
-                    "foundCommentsInFunctionTotal",
-                    "foundCommentsInFunctionComments"
-                ],
-                "type": "object"
-            },
-            "FoundConstStringMatch": {
-                "properties": {
-                    "foundConstStringMatchLocation": {
-                        "$ref": "#/components/schemas/Location"
-                    },
-                    "foundConstStringMatchValue": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "foundConstStringMatchLocation",
-                    "foundConstStringMatchValue"
-                ],
-                "type": "object"
-            },
-            "FoundConstStringsMatching": {
-                "properties": {
-                    "foundConstStringsMatches": {
-                        "items": {
-                            "$ref": "#/components/schemas/FoundConstStringMatch"
-                        },
-                        "type": "array"
-                    },
-                    "foundConstStringsMatchesTotal": {
-                        "maximum": 1.8446744073709551615e19,
-                        "minimum": 0,
-                        "type": "integer"
-                    },
-                    "foundConstStringsMatchingThisRegex": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "foundConstStringsMatchingThisRegex",
-                    "foundConstStringsMatchesTotal",
-                    "foundConstStringsMatches"
-                ],
-                "type": "object"
-            },
-            "FoundControlFlowPath": {
-                "properties": {
-                    "foundControlFlowPathPath": {
-                        "items": {
-                            "$ref": "#/components/schemas/Location"
+                            "$ref": "#/components/schemas/FlowStep"
                         },
                         "type": "array"
                     }
                 },
-                "type": "object"
-            },
-            "FoundControlFlowReachableFileActionSink": {
-                "properties": {
-                    "foundControlFlowReachableFileActionSinkCountsByKind": {
-                        "items": {
-                            "$ref": "#/components/schemas/FileActionKindCount"
-                        },
-                        "type": "array"
-                    },
-                    "foundControlFlowReachableFileActionSinkMatches": {
-                        "items": {
-                            "$ref": "#/components/schemas/FoundControlFlowReachableFileActionSinkMatch"
-                        },
-                        "type": "array"
-                    },
-                    "foundControlFlowReachableFileActionSinkTotal": {
-                        "maximum": 1.8446744073709551615e19,
-                        "minimum": 0,
-                        "type": "integer"
-                    }
-                },
                 "required": [
-                    "foundControlFlowReachableFileActionSinkTotal",
-                    "foundControlFlowReachableFileActionSinkCountsByKind",
-                    "foundControlFlowReachableFileActionSinkMatches"
-                ],
-                "type": "object"
-            },
-            "FoundControlFlowReachableFileActionSinkMatch": {
-                "properties": {
-                    "foundControlFlowReachableFileActionSinkMatchKind": {
-                        "$ref": "#/components/schemas/FileActionKind"
-                    },
-                    "foundControlFlowReachableFileActionSinkMatchLocation": {
-                        "$ref": "#/components/schemas/Location"
-                    },
-                    "foundControlFlowReachableFileActionSinkMatchQualifiedName": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "foundControlFlowReachableFileActionSinkMatchLocation",
-                    "foundControlFlowReachableFileActionSinkMatchQualifiedName",
-                    "foundControlFlowReachableFileActionSinkMatchKind"
-                ],
-                "type": "object"
-            },
-            "FoundControlFlowReachableSqlSink": {
-                "properties": {
-                    "foundControlFlowReachableSqlSinkCountsByKind": {
-                        "items": {
-                            "$ref": "#/components/schemas/SqlSinkKindCount"
-                        },
-                        "type": "array"
-                    },
-                    "foundControlFlowReachableSqlSinkMatches": {
-                        "items": {
-                            "$ref": "#/components/schemas/FoundControlFlowReachableSqlSinkMatch"
-                        },
-                        "type": "array"
-                    },
-                    "foundControlFlowReachableSqlSinkTotal": {
-                        "maximum": 1.8446744073709551615e19,
-                        "minimum": 0,
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "foundControlFlowReachableSqlSinkTotal",
-                    "foundControlFlowReachableSqlSinkCountsByKind",
-                    "foundControlFlowReachableSqlSinkMatches"
-                ],
-                "type": "object"
-            },
-            "FoundControlFlowReachableSqlSinkMatch": {
-                "properties": {
-                    "foundControlFlowReachableSqlSinkMatchKind": {
-                        "$ref": "#/components/schemas/SqlSinkKind"
-                    },
-                    "foundControlFlowReachableSqlSinkMatchLocation": {
-                        "$ref": "#/components/schemas/Location"
-                    },
-                    "foundControlFlowReachableSqlSinkMatchQualifiedName": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "foundControlFlowReachableSqlSinkMatchLocation",
-                    "foundControlFlowReachableSqlSinkMatchQualifiedName",
-                    "foundControlFlowReachableSqlSinkMatchKind"
-                ],
-                "type": "object"
-            },
-            "FoundDataFlowPath": {
-                "properties": {
-                    "foundDataFlowPathPath": {
-                        "items": {
-                            "$ref": "#/components/schemas/Location"
-                        },
-                        "type": "array"
-                    }
-                },
-                "type": "object"
-            },
-            "FoundHttpGetHandlerRequestObject": {
-                "properties": {
-                    "foundHttpGetHandlerRequestObjectMatches": {
-                        "items": {
-                            "$ref": "#/components/schemas/FoundHttpGetHandlerRequestObjectMatch"
-                        },
-                        "type": "array"
-                    },
-                    "foundHttpGetHandlerRequestObjectTotal": {
-                        "maximum": 1.8446744073709551615e19,
-                        "minimum": 0,
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "foundHttpGetHandlerRequestObjectTotal",
-                    "foundHttpGetHandlerRequestObjectMatches"
-                ],
-                "type": "object"
-            },
-            "FoundHttpGetHandlerRequestObjectMatch": {
-                "properties": {
-                    "foundHttpGetHandlerLocation": {
-                        "$ref": "#/components/schemas/Location"
-                    },
-                    "foundHttpGetHandlerRequestObjectMatchLocation": {
-                        "$ref": "#/components/schemas/Location"
-                    },
-                    "foundHttpGetHandlerRequestObjectMatchUrl": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "foundHttpGetHandlerLocation",
-                    "foundHttpGetHandlerRequestObjectMatchLocation",
-                    "foundHttpGetHandlerRequestObjectMatchUrl"
-                ],
-                "type": "object"
-            },
-            "FoundHttpPostHandlerRequestObjectMatch": {
-                "properties": {
-                    "foundHttpPostHandlerLocation": {
-                        "$ref": "#/components/schemas/Location"
-                    },
-                    "foundHttpPostHandlerRequestObjectLocation": {
-                        "$ref": "#/components/schemas/Location"
-                    },
-                    "foundHttpPostHandlerRequestObjectMatchUrl": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "foundHttpPostHandlerLocation",
-                    "foundHttpPostHandlerRequestObjectLocation",
-                    "foundHttpPostHandlerRequestObjectMatchUrl"
-                ],
-                "type": "object"
-            },
-            "FoundHttpPutHandlerRequestObjectMatch": {
-                "properties": {
-                    "foundHttpPutHandlerLocation": {
-                        "$ref": "#/components/schemas/Location"
-                    },
-                    "foundHttpPutHandlerRequestObjectLocation": {
-                        "$ref": "#/components/schemas/Location"
-                    },
-                    "foundHttpPutHandlerRequestObjectMatchUrl": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "foundHttpPutHandlerLocation",
-                    "foundHttpPutHandlerRequestObjectLocation",
-                    "foundHttpPutHandlerRequestObjectMatchUrl"
-                ],
-                "type": "object"
-            },
-            "FoundUnauthenticatedHttpGetHandlerRequestObject": {
-                "properties": {
-                    "foundUnauthenticatedHttpGetHandlerRequestObjectMatches": {
-                        "items": {
-                            "$ref": "#/components/schemas/FoundHttpGetHandlerRequestObjectMatch"
-                        },
-                        "type": "array"
-                    },
-                    "foundUnauthenticatedHttpGetHandlerRequestObjectTotal": {
-                        "maximum": 1.8446744073709551615e19,
-                        "minimum": 0,
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "foundUnauthenticatedHttpGetHandlerRequestObjectTotal",
-                    "foundUnauthenticatedHttpGetHandlerRequestObjectMatches"
-                ],
-                "type": "object"
-            },
-            "FoundUnauthenticatedHttpPostHandlerRequestObject": {
-                "properties": {
-                    "foundUnauthenticatedHttpPostHandlerRequestObjectMatches": {
-                        "items": {
-                            "$ref": "#/components/schemas/FoundHttpPostHandlerRequestObjectMatch"
-                        },
-                        "type": "array"
-                    },
-                    "foundUnauthenticatedHttpPostHandlerRequestObjectTotal": {
-                        "maximum": 1.8446744073709551615e19,
-                        "minimum": 0,
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "foundUnauthenticatedHttpPostHandlerRequestObjectTotal",
-                    "foundUnauthenticatedHttpPostHandlerRequestObjectMatches"
-                ],
-                "type": "object"
-            },
-            "FoundUnauthenticatedHttpPutHandlerRequestObject": {
-                "properties": {
-                    "foundUnauthenticatedHttpPutHandlerRequestObjectMatches": {
-                        "items": {
-                            "$ref": "#/components/schemas/FoundHttpPutHandlerRequestObjectMatch"
-                        },
-                        "type": "array"
-                    },
-                    "foundUnauthenticatedHttpPutHandlerRequestObjectTotal": {
-                        "maximum": 1.8446744073709551615e19,
-                        "minimum": 0,
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "foundUnauthenticatedHttpPutHandlerRequestObjectTotal",
-                    "foundUnauthenticatedHttpPutHandlerRequestObjectMatches"
-                ],
-                "type": "object"
-            },
-            "FoundWriteContentToLocalFile": {
-                "properties": {
-                    "foundWriteContentToLocalFileLocations": {
-                        "items": {
-                            "$ref": "#/components/schemas/Location"
-                        },
-                        "type": "array"
-                    },
-                    "foundWriteContentToLocalFileTotal": {
-                        "maximum": 1.8446744073709551615e19,
-                        "minimum": 0,
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "foundWriteContentToLocalFileTotal",
-                    "foundWriteContentToLocalFileLocations"
+                    "cond",
+                    "userInputArgIndex",
+                    "userInputFlow",
+                    "thenPart",
+                    "elsePart"
                 ],
                 "type": "object"
             },
             "Location": {
+                "properties": {
+                    "colEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "colStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "filename": {
+                        "type": "string"
+                    },
+                    "lineEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "lineStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "filename",
+                    "lineStart",
+                    "lineEnd",
+                    "colStart",
+                    "colEnd"
+                ],
+                "type": "object"
+            },
+            "MethodName": {
+                "type": "string"
+            },
+            "PartCall": {
+                "properties": {
+                    "constStringArgs": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "location": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "qualifiedName": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "location",
+                    "constStringArgs"
+                ],
+                "type": "object"
+            },
+            "PathVariable": {
                 "properties": {
                     "colEnd": {
                         "maximum": 1.8446744073709551615e19,
@@ -594,7 +371,45 @@
                     {
                         "properties": {
                             "contents": {
-                                "$ref": "#/components/schemas/FoundConstStringsMatching"
+                                "$ref": "#/components/schemas/WithHttpHandlers.Content"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundHttpHandlers"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundHttpHandlers",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/WithControlFlowReachableSinks.Content"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundControlFlowReachableSinks"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundControlFlowReachableSinks",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/WithConstStrings.Content"
                             },
                             "tag": {
                                 "enum": [
@@ -613,140 +428,7 @@
                     {
                         "properties": {
                             "contents": {
-                                "$ref": "#/components/schemas/FoundHttpGetHandlerRequestObject"
-                            },
-                            "tag": {
-                                "enum": [
-                                    "FoundHttpGetHandlerRequestObject"
-                                ],
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "tag",
-                            "contents"
-                        ],
-                        "title": "FoundHttpGetHandlerRequestObject",
-                        "type": "object"
-                    },
-                    {
-                        "properties": {
-                            "contents": {
-                                "$ref": "#/components/schemas/FoundUnauthenticatedHttpGetHandlerRequestObject"
-                            },
-                            "tag": {
-                                "enum": [
-                                    "FoundUnauthenticatedHttpGetHandlerRequestObject"
-                                ],
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "tag",
-                            "contents"
-                        ],
-                        "title": "FoundUnauthenticatedHttpGetHandlerRequestObject",
-                        "type": "object"
-                    },
-                    {
-                        "properties": {
-                            "contents": {
-                                "$ref": "#/components/schemas/FoundAuthenticatedHttpGetHandlerRequestObject"
-                            },
-                            "tag": {
-                                "enum": [
-                                    "FoundAuthenticatedHttpGetHandlerRequestObject"
-                                ],
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "tag",
-                            "contents"
-                        ],
-                        "title": "FoundAuthenticatedHttpGetHandlerRequestObject",
-                        "type": "object"
-                    },
-                    {
-                        "properties": {
-                            "contents": {
-                                "$ref": "#/components/schemas/FoundUnauthenticatedHttpPostHandlerRequestObject"
-                            },
-                            "tag": {
-                                "enum": [
-                                    "FoundUnauthenticatedHttpPostHandlerRequestObject"
-                                ],
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "tag",
-                            "contents"
-                        ],
-                        "title": "FoundUnauthenticatedHttpPostHandlerRequestObject",
-                        "type": "object"
-                    },
-                    {
-                        "properties": {
-                            "contents": {
-                                "$ref": "#/components/schemas/FoundAuthenticatedHttpPostHandlerRequestObject"
-                            },
-                            "tag": {
-                                "enum": [
-                                    "FoundAuthenticatedHttpPostHandlerRequestObject"
-                                ],
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "tag",
-                            "contents"
-                        ],
-                        "title": "FoundAuthenticatedHttpPostHandlerRequestObject",
-                        "type": "object"
-                    },
-                    {
-                        "properties": {
-                            "contents": {
-                                "$ref": "#/components/schemas/FoundUnauthenticatedHttpPutHandlerRequestObject"
-                            },
-                            "tag": {
-                                "enum": [
-                                    "FoundUnauthenticatedHttpPutHandlerRequestObject"
-                                ],
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "tag",
-                            "contents"
-                        ],
-                        "title": "FoundUnauthenticatedHttpPutHandlerRequestObject",
-                        "type": "object"
-                    },
-                    {
-                        "properties": {
-                            "contents": {
-                                "$ref": "#/components/schemas/FoundAuthenticatedHttpPutHandlerRequestObject"
-                            },
-                            "tag": {
-                                "enum": [
-                                    "FoundAuthenticatedHttpPutHandlerRequestObject"
-                                ],
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "tag",
-                            "contents"
-                        ],
-                        "title": "FoundAuthenticatedHttpPutHandlerRequestObject",
-                        "type": "object"
-                    },
-                    {
-                        "properties": {
-                            "contents": {
-                                "$ref": "#/components/schemas/FoundCommentsInFunction"
+                                "$ref": "#/components/schemas/WithComments.Content"
                             },
                             "tag": {
                                 "enum": [
@@ -765,45 +447,7 @@
                     {
                         "properties": {
                             "contents": {
-                                "$ref": "#/components/schemas/FoundWriteContentToLocalFile"
-                            },
-                            "tag": {
-                                "enum": [
-                                    "FoundWriteContentToLocalFile"
-                                ],
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "tag",
-                            "contents"
-                        ],
-                        "title": "FoundWriteContentToLocalFile",
-                        "type": "object"
-                    },
-                    {
-                        "properties": {
-                            "contents": {
-                                "$ref": "#/components/schemas/FoundControlFlowPath"
-                            },
-                            "tag": {
-                                "enum": [
-                                    "FoundControlFlowPath"
-                                ],
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "tag",
-                            "contents"
-                        ],
-                        "title": "FoundControlFlowPath",
-                        "type": "object"
-                    },
-                    {
-                        "properties": {
-                            "contents": {
-                                "$ref": "#/components/schemas/FoundDataFlowPath"
+                                "$ref": "#/components/schemas/WithDataFlowPath.Content"
                             },
                             "tag": {
                                 "enum": [
@@ -822,11 +466,11 @@
                     {
                         "properties": {
                             "contents": {
-                                "$ref": "#/components/schemas/FoundControlFlowReachableSqlSink"
+                                "$ref": "#/components/schemas/WithSanitizers.Content"
                             },
                             "tag": {
                                 "enum": [
-                                    "FoundControlFlowReachableSqlSink"
+                                    "FoundSanitizers"
                                 ],
                                 "type": "string"
                             }
@@ -835,17 +479,227 @@
                             "tag",
                             "contents"
                         ],
-                        "title": "FoundControlFlowReachableSqlSink",
+                        "title": "FoundSanitizers",
+                        "type": "object"
+                    }
+                ]
+            },
+            "RequestBody": {
+                "properties": {
+                    "colEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "colStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "filename": {
+                        "type": "string"
+                    },
+                    "lineEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "lineStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "filename",
+                    "lineStart",
+                    "lineEnd",
+                    "colStart",
+                    "colEnd"
+                ],
+                "type": "object"
+            },
+            "RequestHeader": {
+                "properties": {
+                    "colEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "colStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "filename": {
+                        "type": "string"
+                    },
+                    "lineEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "lineStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "filename",
+                    "lineStart",
+                    "lineEnd",
+                    "colStart",
+                    "colEnd"
+                ],
+                "type": "object"
+            },
+            "RequestObject": {
+                "properties": {
+                    "colEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "colStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "filename": {
+                        "type": "string"
+                    },
+                    "lineEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "lineStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "filename",
+                    "lineStart",
+                    "lineEnd",
+                    "colStart",
+                    "colEnd"
+                ],
+                "type": "object"
+            },
+            "RequestParam": {
+                "properties": {
+                    "requestParamLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "requestParamName": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "requestParamName",
+                    "requestParamLocation"
+                ],
+                "type": "object"
+            },
+            "RequestPart": {
+                "properties": {
+                    "colEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "colStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "filename": {
+                        "type": "string"
+                    },
+                    "lineEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "lineStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "filename",
+                    "lineStart",
+                    "lineEnd",
+                    "colStart",
+                    "colEnd"
+                ],
+                "type": "object"
+            },
+            "Sanitizer": {
+                "properties": {
+                    "contents": {
+                        "$ref": "#/components/schemas/IfThenElse"
+                    },
+                    "tag": {
+                        "$ref": "#/components/schemas/SanitizerTag"
+                    }
+                },
+                "required": [
+                    "tag",
+                    "contents"
+                ],
+                "type": "object"
+            },
+            "SanitizerTag": {
+                "enum": [
+                    "TopLevelIfThenElse"
+                ],
+                "type": "string"
+            },
+            "Sink": {
+                "enum": [
+                    "FileOperationRead",
+                    "FileOperationWrite",
+                    "FileOperationDelete",
+                    "OpenRedirect",
+                    "SSRF",
+                    "SQL"
+                ],
+                "type": "string"
+            },
+            "UserInput": {
+                "oneOf": [
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/RequestObject"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "RequestObjectCtor"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "RequestObjectCtor",
                         "type": "object"
                     },
                     {
                         "properties": {
                             "contents": {
-                                "$ref": "#/components/schemas/FoundControlFlowReachableFileActionSink"
+                                "$ref": "#/components/schemas/RequestParam"
                             },
                             "tag": {
                                 "enum": [
-                                    "FoundControlFlowReachableFileActionSink"
+                                    "RequestParamCtor"
                                 ],
                                 "type": "string"
                             }
@@ -854,32 +708,248 @@
                             "tag",
                             "contents"
                         ],
-                        "title": "FoundControlFlowReachableFileActionSink",
+                        "title": "RequestParamCtor",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/PathVariable"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "PathVariableCtor"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "PathVariableCtor",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/RequestBody"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "RequestBodyCtor"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "RequestBodyCtor",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/RequestHeader"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "RequestHeaderCtor"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "RequestHeaderCtor",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/CookieValue"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "CookieValueCtor"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "CookieValueCtor",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/RequestPart"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "RequestPartCtor"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "RequestPartCtor",
                         "type": "object"
                     }
                 ]
             },
-            "SqlSinkKind": {
-                "enum": [
-                    "SqlPreparedStatement",
-                    "SqlRaw"
-                ],
-                "type": "string"
-            },
-            "SqlSinkKindCount": {
+            "WithComments.Content": {
                 "properties": {
-                    "sqlSinkKindCountCount": {
+                    "matches": {
+                        "items": {
+                            "$ref": "#/components/schemas/Comment"
+                        },
+                        "type": "array"
+                    },
+                    "total": {
                         "maximum": 1.8446744073709551615e19,
                         "minimum": 0,
                         "type": "integer"
-                    },
-                    "sqlSinkKindCountKind": {
-                        "$ref": "#/components/schemas/SqlSinkKind"
                     }
                 },
                 "required": [
-                    "sqlSinkKindCountKind",
-                    "sqlSinkKindCountCount"
+                    "total",
+                    "matches"
+                ],
+                "type": "object"
+            },
+            "WithConstStrings.Content": {
+                "properties": {
+                    "matches": {
+                        "items": {
+                            "$ref": "#/components/schemas/WithConstStrings.Match"
+                        },
+                        "type": "array"
+                    },
+                    "total": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "total",
+                    "matches"
+                ],
+                "type": "object"
+            },
+            "WithConstStrings.Match": {
+                "properties": {
+                    "location": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "location",
+                    "value"
+                ],
+                "type": "object"
+            },
+            "WithControlFlowReachableSinks.Content": {
+                "properties": {
+                    "matches": {
+                        "items": {
+                            "$ref": "#/components/schemas/WithControlFlowReachableSinks.Match"
+                        },
+                        "type": "array"
+                    },
+                    "total": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "total",
+                    "matches"
+                ],
+                "type": "object"
+            },
+            "WithControlFlowReachableSinks.Match": {
+                "properties": {
+                    "kind": {
+                        "$ref": "#/components/schemas/Sink"
+                    },
+                    "location": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "qualifiedName": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "location",
+                    "qualifiedName",
+                    "kind"
+                ],
+                "type": "object"
+            },
+            "WithDataFlowPath.Content": {
+                "properties": {
+                    "path": {
+                        "items": {
+                            "$ref": "#/components/schemas/Location"
+                        },
+                        "type": "array"
+                    }
+                },
+                "type": "object"
+            },
+            "WithHttpHandlers.Content": {
+                "properties": {
+                    "matches": {
+                        "items": {
+                            "$ref": "#/components/schemas/HttpHandler"
+                        },
+                        "type": "array"
+                    },
+                    "total": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "total",
+                    "matches"
+                ],
+                "type": "object"
+            },
+            "WithSanitizers.Content": {
+                "properties": {
+                    "matches": {
+                        "items": {
+                            "$ref": "#/components/schemas/Sanitizer"
+                        },
+                        "type": "array"
+                    },
+                    "total": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "total",
+                    "matches"
                 ],
                 "type": "object"
             }
@@ -889,7 +959,45 @@
         {
             "properties": {
                 "contents": {
-                    "$ref": "#/components/schemas/FoundConstStringsMatching"
+                    "$ref": "#/components/schemas/WithHttpHandlers.Content"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundHttpHandlers"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundHttpHandlers",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/WithControlFlowReachableSinks.Content"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundControlFlowReachableSinks"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundControlFlowReachableSinks",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/WithConstStrings.Content"
                 },
                 "tag": {
                     "enum": [
@@ -908,140 +1016,7 @@
         {
             "properties": {
                 "contents": {
-                    "$ref": "#/components/schemas/FoundHttpGetHandlerRequestObject"
-                },
-                "tag": {
-                    "enum": [
-                        "FoundHttpGetHandlerRequestObject"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "tag",
-                "contents"
-            ],
-            "title": "FoundHttpGetHandlerRequestObject",
-            "type": "object"
-        },
-        {
-            "properties": {
-                "contents": {
-                    "$ref": "#/components/schemas/FoundUnauthenticatedHttpGetHandlerRequestObject"
-                },
-                "tag": {
-                    "enum": [
-                        "FoundUnauthenticatedHttpGetHandlerRequestObject"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "tag",
-                "contents"
-            ],
-            "title": "FoundUnauthenticatedHttpGetHandlerRequestObject",
-            "type": "object"
-        },
-        {
-            "properties": {
-                "contents": {
-                    "$ref": "#/components/schemas/FoundAuthenticatedHttpGetHandlerRequestObject"
-                },
-                "tag": {
-                    "enum": [
-                        "FoundAuthenticatedHttpGetHandlerRequestObject"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "tag",
-                "contents"
-            ],
-            "title": "FoundAuthenticatedHttpGetHandlerRequestObject",
-            "type": "object"
-        },
-        {
-            "properties": {
-                "contents": {
-                    "$ref": "#/components/schemas/FoundUnauthenticatedHttpPostHandlerRequestObject"
-                },
-                "tag": {
-                    "enum": [
-                        "FoundUnauthenticatedHttpPostHandlerRequestObject"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "tag",
-                "contents"
-            ],
-            "title": "FoundUnauthenticatedHttpPostHandlerRequestObject",
-            "type": "object"
-        },
-        {
-            "properties": {
-                "contents": {
-                    "$ref": "#/components/schemas/FoundAuthenticatedHttpPostHandlerRequestObject"
-                },
-                "tag": {
-                    "enum": [
-                        "FoundAuthenticatedHttpPostHandlerRequestObject"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "tag",
-                "contents"
-            ],
-            "title": "FoundAuthenticatedHttpPostHandlerRequestObject",
-            "type": "object"
-        },
-        {
-            "properties": {
-                "contents": {
-                    "$ref": "#/components/schemas/FoundUnauthenticatedHttpPutHandlerRequestObject"
-                },
-                "tag": {
-                    "enum": [
-                        "FoundUnauthenticatedHttpPutHandlerRequestObject"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "tag",
-                "contents"
-            ],
-            "title": "FoundUnauthenticatedHttpPutHandlerRequestObject",
-            "type": "object"
-        },
-        {
-            "properties": {
-                "contents": {
-                    "$ref": "#/components/schemas/FoundAuthenticatedHttpPutHandlerRequestObject"
-                },
-                "tag": {
-                    "enum": [
-                        "FoundAuthenticatedHttpPutHandlerRequestObject"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "tag",
-                "contents"
-            ],
-            "title": "FoundAuthenticatedHttpPutHandlerRequestObject",
-            "type": "object"
-        },
-        {
-            "properties": {
-                "contents": {
-                    "$ref": "#/components/schemas/FoundCommentsInFunction"
+                    "$ref": "#/components/schemas/WithComments.Content"
                 },
                 "tag": {
                     "enum": [
@@ -1060,45 +1035,7 @@
         {
             "properties": {
                 "contents": {
-                    "$ref": "#/components/schemas/FoundWriteContentToLocalFile"
-                },
-                "tag": {
-                    "enum": [
-                        "FoundWriteContentToLocalFile"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "tag",
-                "contents"
-            ],
-            "title": "FoundWriteContentToLocalFile",
-            "type": "object"
-        },
-        {
-            "properties": {
-                "contents": {
-                    "$ref": "#/components/schemas/FoundControlFlowPath"
-                },
-                "tag": {
-                    "enum": [
-                        "FoundControlFlowPath"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "tag",
-                "contents"
-            ],
-            "title": "FoundControlFlowPath",
-            "type": "object"
-        },
-        {
-            "properties": {
-                "contents": {
-                    "$ref": "#/components/schemas/FoundDataFlowPath"
+                    "$ref": "#/components/schemas/WithDataFlowPath.Content"
                 },
                 "tag": {
                     "enum": [
@@ -1117,11 +1054,11 @@
         {
             "properties": {
                 "contents": {
-                    "$ref": "#/components/schemas/FoundControlFlowReachableSqlSink"
+                    "$ref": "#/components/schemas/WithSanitizers.Content"
                 },
                 "tag": {
                     "enum": [
-                        "FoundControlFlowReachableSqlSink"
+                        "FoundSanitizers"
                     ],
                     "type": "string"
                 }
@@ -1130,26 +1067,7 @@
                 "tag",
                 "contents"
             ],
-            "title": "FoundControlFlowReachableSqlSink",
-            "type": "object"
-        },
-        {
-            "properties": {
-                "contents": {
-                    "$ref": "#/components/schemas/FoundControlFlowReachableFileActionSink"
-                },
-                "tag": {
-                    "enum": [
-                        "FoundControlFlowReachableFileActionSink"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "tag",
-                "contents"
-            ],
-            "title": "FoundControlFlowReachableFileActionSink",
+            "title": "FoundSanitizers",
             "type": "object"
         }
     ]
