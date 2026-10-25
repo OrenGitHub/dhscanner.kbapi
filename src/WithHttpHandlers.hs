@@ -23,9 +23,12 @@ data Features
      }
      deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 
--- | 'Unknown' : the handler is reachable from a request, but its verb
--- ( and url ) live elsewhere, eg a servlet method taking the
--- @HttpServletRequest@ whose route is registered in another file.
+-- |
+--
+-- * Complete resolution of the underlying verb is not always easy.
+--
+-- * When the verb is not known, the knowledge base labels it as 'Unknown'.
+--
 data HttpVerb = Get | Post | Put | Delete | Patch | Unknown
    deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 
