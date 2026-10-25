@@ -23,7 +23,10 @@ data Features
      }
      deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 
-data HttpVerb = Get | Post | Put | Delete | Patch
+-- | 'Unknown' : the handler is reachable from a request, but its verb
+-- ( and url ) live elsewhere, eg a servlet method taking the
+-- @HttpServletRequest@ whose route is registered in another file.
+data HttpVerb = Get | Post | Put | Delete | Patch | Unknown
    deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 
 data AuthFilter = Unauthenticated | Authenticated
