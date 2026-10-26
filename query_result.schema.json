@@ -230,7 +230,8 @@
                     "Post",
                     "Put",
                     "Delete",
-                    "Patch"
+                    "Patch",
+                    "Unknown"
                 ],
                 "type": "string"
             },
