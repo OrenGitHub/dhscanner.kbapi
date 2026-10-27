@@ -36,6 +36,28 @@
                         ],
                         "title": "ByAllButOneBadReturn",
                         "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "items": {
+                                    "$ref": "#/components/schemas/SecurityAnnotation"
+                                },
+                                "type": "array"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "ByAnnotations"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "ByAnnotations",
+                        "type": "object"
                     }
                 ]
             },
@@ -660,6 +682,28 @@
                     "TopLevelIfThenElse"
                 ],
                 "type": "string"
+            },
+            "SecurityAnnotation": {
+                "properties": {
+                    "securityAnnotationConstStrArgs": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "securityAnnotationFqn": {
+                        "type": "string"
+                    },
+                    "securityAnnotationLocation": {
+                        "$ref": "#/components/schemas/Location"
+                    }
+                },
+                "required": [
+                    "securityAnnotationFqn",
+                    "securityAnnotationLocation",
+                    "securityAnnotationConstStrArgs"
+                ],
+                "type": "object"
             },
             "Sink": {
                 "enum": [
