@@ -123,7 +123,29 @@ data Authentication
 --   path falls through implicitly. No payload \- the evidence /is/
 --   the shape, and the callable\'s name is already carried by
 --   'authenticationFunctionName'.
+--
+-- * @ByAnnotations [ SecurityAnnotation ]@ \- the handler, or its
+--   hosting class, carries security annotations ( spring's
+--   @\@PreAuthorize@, @\@Secured@, @\@RolesAllowed@, ... ). Every
+--   annotation in effect is listed : spring checks each kind on its
+--   own, and the method annotation overrides the class one of the same
+--   kind. 'authenticationFunctionName' holds the first one's short name
+--   ( e.g. @\"PreAuthorize\"@ ).
 data AuthEvidence
    = ByHeaderNullCheck String
    | ByAllButOneBadReturn
+   | ByAnnotations [ SecurityAnnotation ]
    deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
+
+-- | A security annotation in effect on a handler, e.g.
+-- @\@Secured( { \"ROLE_A\", \"ROLE_B\" } )@ has const string args
+-- @[ \"ROLE_A\", \"ROLE_B\" ]@ ( array args are flattened, args that
+-- are not constant strings are skipped ).
+data SecurityAnnotation
+   = SecurityAnnotation
+     {
+         securityAnnotationFqn :: String,
+         securityAnnotationLocation :: Location,
+         securityAnnotationConstStrArgs :: [ String ]
+     }
+     deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
