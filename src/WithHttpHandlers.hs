@@ -19,7 +19,8 @@ data Features
         verbs :: Set HttpVerb,
         authentications :: Set AuthFilter,
         routeContainsUrlParts :: Maybe [ String ], -- ^ Nothing = don't filter
-        maxNumHttpHandlers :: Word
+        maxNumHttpHandlers :: Word,
+        orderEndpointsLexicographically :: Bool -- ^ 'False' = random order
      }
      deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 
