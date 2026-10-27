@@ -59,6 +59,7 @@ instance ToSchema WithHttpHandlers.CookieValue
 instance ToSchema WithHttpHandlers.RequestPart
 instance ToSchema WithHttpHandlers.Authentication
 instance ToSchema WithHttpHandlers.AuthEvidence
+instance ToSchema WithHttpHandlers.SecurityAnnotation
 
 instance ToSchema WithControlFlowReachableSinks.Features where declareNamedSchema = genericDeclareNamedSchema (qualifiedAs "WithControlFlowReachableSinks")
 instance ToSchema WithControlFlowReachableSinks.Sink
