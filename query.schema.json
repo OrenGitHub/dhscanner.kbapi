@@ -289,6 +289,9 @@
                         "minimum": 0,
                         "type": "integer"
                     },
+                    "orderEndpointsLexicographically": {
+                        "type": "boolean"
+                    },
                     "routeContainsUrlParts": {
                         "items": {
                             "type": "string"
@@ -306,7 +309,8 @@
                 "required": [
                     "verbs",
                     "authentications",
-                    "maxNumHttpHandlers"
+                    "maxNumHttpHandlers",
+                    "orderEndpointsLexicographically"
                 ],
                 "type": "object"
             },
