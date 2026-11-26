@@ -79,6 +79,9 @@
             "ClassName": {
                 "type": "string"
             },
+            "Column": {
+                "type": "string"
+            },
             "Comment": {
                 "properties": {
                     "commentContent": {
@@ -126,6 +129,28 @@
                     "lineEnd",
                     "colStart",
                     "colEnd"
+                ],
+                "type": "object"
+            },
+            "DBWriteDataFlowContent": {
+                "properties": {
+                    "column": {
+                        "$ref": "#/components/schemas/Column"
+                    },
+                    "dbWriteDataFlowPath": {
+                        "items": {
+                            "$ref": "#/components/schemas/Location"
+                        },
+                        "type": "array"
+                    },
+                    "model": {
+                        "$ref": "#/components/schemas/Model"
+                    }
+                },
+                "required": [
+                    "model",
+                    "column",
+                    "dbWriteDataFlowPath"
                 ],
                 "type": "object"
             },
@@ -333,6 +358,9 @@
             "MethodName": {
                 "type": "string"
             },
+            "Model": {
+                "type": "string"
+            },
             "PartCall": {
                 "properties": {
                     "constStringArgs": {
@@ -386,6 +414,20 @@
                     "lineEnd",
                     "colStart",
                     "colEnd"
+                ],
+                "type": "object"
+            },
+            "PlainDataFlowContent": {
+                "properties": {
+                    "plainDataFlowPath": {
+                        "items": {
+                            "$ref": "#/components/schemas/Location"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "plainDataFlowPath"
                 ],
                 "type": "object"
             },
@@ -712,7 +754,8 @@
                     "FileOperationDelete",
                     "OpenRedirect",
                     "SSRF",
-                    "SQL"
+                    "SQL",
+                    "DbWrite"
                 ],
                 "type": "string"
             },
@@ -948,15 +991,61 @@
                 "type": "object"
             },
             "WithDataFlowPath.Content": {
-                "properties": {
-                    "path": {
-                        "items": {
-                            "$ref": "#/components/schemas/Location"
+                "oneOf": [
+                    {
+                        "properties": {
+                            "tag": {
+                                "enum": [
+                                    "NoDataFlowPath"
+                                ],
+                                "type": "string"
+                            }
                         },
-                        "type": "array"
+                        "required": [
+                            "tag"
+                        ],
+                        "title": "NoDataFlowPath",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/PlainDataFlowContent"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "PlainDataFlowPath"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "PlainDataFlowPath",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/DBWriteDataFlowContent"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "DbWriteDataFlowPath"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "DbWriteDataFlowPath",
+                        "type": "object"
                     }
-                },
-                "type": "object"
+                ]
             },
             "WithHttpHandlers.Content": {
                 "properties": {

@@ -179,7 +179,8 @@
                     "FileOperationDelete",
                     "OpenRedirect",
                     "SSRF",
-                    "SQL"
+                    "SQL",
+                    "DbWrite"
                 ],
                 "type": "string"
             },
