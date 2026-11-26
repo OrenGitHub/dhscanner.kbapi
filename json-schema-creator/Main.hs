@@ -76,6 +76,10 @@ instance ToSchema WithComments.Comment
 
 instance ToSchema WithDataFlowPath.Features where declareNamedSchema = genericDeclareNamedSchema (qualifiedAs "WithDataFlowPath")
 instance ToSchema WithDataFlowPath.Content where declareNamedSchema = genericDeclareNamedSchema (qualifiedAs "WithDataFlowPath")
+instance ToSchema WithDataFlowPath.PlainDataFlowContent
+instance ToSchema WithDataFlowPath.DBWriteDataFlowContent
+instance ToSchema WithDataFlowPath.Model
+instance ToSchema WithDataFlowPath.Column
 
 instance ToSchema WithSanitizers.Features where declareNamedSchema = genericDeclareNamedSchema (qualifiedAs "WithSanitizers")
 instance ToSchema WithSanitizers.Content where declareNamedSchema = genericDeclareNamedSchema (qualifiedAs "WithSanitizers")
