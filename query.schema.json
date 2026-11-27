@@ -8,6 +8,9 @@
                 ],
                 "type": "string"
             },
+            "Column": {
+                "type": "string"
+            },
             "HttpVerb": {
                 "enum": [
                     "Get",
@@ -53,6 +56,9 @@
                     "colEnd"
                 ],
                 "type": "object"
+            },
+            "Model": {
+                "type": "string"
             },
             "Query": {
                 "oneOf": [
@@ -169,6 +175,25 @@
                         ],
                         "title": "SelectSanitizers",
                         "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/WithDBReads.Features"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "SelectDBReads"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "SelectDBReads",
+                        "type": "object"
                     }
                 ]
             },
@@ -180,7 +205,8 @@
                     "OpenRedirect",
                     "SSRF",
                     "SQL",
-                    "DbWrite"
+                    "DBWrite",
+                    "Import"
                 ],
                 "type": "string"
             },
@@ -246,6 +272,37 @@
                     "sinks",
                     "maxNumHops",
                     "maxNumSinks"
+                ],
+                "type": "object"
+            },
+            "WithDBReads.Features": {
+                "properties": {
+                    "column": {
+                        "$ref": "#/components/schemas/Column"
+                    },
+                    "endpoint": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "maxNumInterProceduralHops": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "maxNumMatches": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "model": {
+                        "$ref": "#/components/schemas/Model"
+                    }
+                },
+                "required": [
+                    "endpoint",
+                    "model",
+                    "column",
+                    "maxNumInterProceduralHops",
+                    "maxNumMatches"
                 ],
                 "type": "object"
             },
@@ -451,6 +508,25 @@
                 "contents"
             ],
             "title": "SelectSanitizers",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/WithDBReads.Features"
+                },
+                "tag": {
+                    "enum": [
+                        "SelectDBReads"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "SelectDBReads",
             "type": "object"
         }
     ]

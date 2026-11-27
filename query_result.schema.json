@@ -132,6 +132,41 @@
                 ],
                 "type": "object"
             },
+            "DBRead": {
+                "properties": {
+                    "colEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "colStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "filename": {
+                        "type": "string"
+                    },
+                    "lineEnd": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    },
+                    "lineStart": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "filename",
+                    "lineStart",
+                    "lineEnd",
+                    "colStart",
+                    "colEnd"
+                ],
+                "type": "object"
+            },
             "DBWriteDataFlowContent": {
                 "properties": {
                     "column": {
@@ -546,6 +581,25 @@
                         ],
                         "title": "FoundSanitizers",
                         "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/WithDBReads.Content"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "FoundDBReads"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "FoundDBReads",
+                        "type": "object"
                     }
                 ]
             },
@@ -755,7 +809,8 @@
                     "OpenRedirect",
                     "SSRF",
                     "SQL",
-                    "DbWrite"
+                    "DBWrite",
+                    "Import"
                 ],
                 "type": "string"
             },
@@ -990,6 +1045,44 @@
                 ],
                 "type": "object"
             },
+            "WithDBReads.Content": {
+                "properties": {
+                    "matches": {
+                        "items": {
+                            "$ref": "#/components/schemas/WithDBReads.Match"
+                        },
+                        "type": "array"
+                    },
+                    "total": {
+                        "maximum": 1.8446744073709551615e19,
+                        "minimum": 0,
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "total",
+                    "matches"
+                ],
+                "type": "object"
+            },
+            "WithDBReads.Match": {
+                "properties": {
+                    "dbRead": {
+                        "$ref": "#/components/schemas/DBRead"
+                    },
+                    "endpointToDBRead": {
+                        "items": {
+                            "$ref": "#/components/schemas/Location"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "dbRead",
+                    "endpointToDBRead"
+                ],
+                "type": "object"
+            },
             "WithDataFlowPath.Content": {
                 "oneOf": [
                     {
@@ -1033,7 +1126,7 @@
                             },
                             "tag": {
                                 "enum": [
-                                    "DbWriteDataFlowPath"
+                                    "DBWriteDataFlowPath"
                                 ],
                                 "type": "string"
                             }
@@ -1042,7 +1135,7 @@
                             "tag",
                             "contents"
                         ],
-                        "title": "DbWriteDataFlowPath",
+                        "title": "DBWriteDataFlowPath",
                         "type": "object"
                     }
                 ]
@@ -1202,6 +1295,25 @@
                 "contents"
             ],
             "title": "FoundSanitizers",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/WithDBReads.Content"
+                },
+                "tag": {
+                    "enum": [
+                        "FoundDBReads"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "FoundDBReads",
             "type": "object"
         }
     ]
