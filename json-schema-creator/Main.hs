@@ -24,12 +24,14 @@ import Location
 import Kbapi ( Query, QueryResult )
 
 -- project qualified imports
+import qualified Common
 import qualified WithHttpHandlers
 import qualified WithControlFlowReachableSinks
 import qualified WithConstStrings
 import qualified WithComments
 import qualified WithDataFlowPath
 import qualified WithSanitizers
+import qualified WithDBReads
 
 -- every query module names its type Features : qualify the schema name
 qualifiedAs :: String -> SchemaOptions
@@ -39,6 +41,9 @@ instance ToSchema Query
 instance ToSchema QueryResult
 
 instance ToSchema Location
+
+instance ToSchema Common.Model
+instance ToSchema Common.Column
 
 instance ToSchema WithHttpHandlers.Features where declareNamedSchema = genericDeclareNamedSchema (qualifiedAs "WithHttpHandlers")
 instance ToSchema WithHttpHandlers.HttpVerb
@@ -78,14 +83,17 @@ instance ToSchema WithDataFlowPath.Features where declareNamedSchema = genericDe
 instance ToSchema WithDataFlowPath.Content where declareNamedSchema = genericDeclareNamedSchema (qualifiedAs "WithDataFlowPath")
 instance ToSchema WithDataFlowPath.PlainDataFlowContent
 instance ToSchema WithDataFlowPath.DBWriteDataFlowContent
-instance ToSchema WithDataFlowPath.Model
-instance ToSchema WithDataFlowPath.Column
 
 instance ToSchema WithSanitizers.Features where declareNamedSchema = genericDeclareNamedSchema (qualifiedAs "WithSanitizers")
 instance ToSchema WithSanitizers.Content where declareNamedSchema = genericDeclareNamedSchema (qualifiedAs "WithSanitizers")
 instance ToSchema WithSanitizers.IfThenElse
 instance ToSchema WithSanitizers.PartCall
 instance ToSchema WithSanitizers.FlowStep
+
+instance ToSchema WithDBReads.Features where declareNamedSchema = genericDeclareNamedSchema (qualifiedAs "WithDBReads")
+instance ToSchema WithDBReads.Content where declareNamedSchema = genericDeclareNamedSchema (qualifiedAs "WithDBReads")
+instance ToSchema WithDBReads.Match where declareNamedSchema = genericDeclareNamedSchema (qualifiedAs "WithDBReads")
+instance ToSchema WithDBReads.DBRead
 
 -- openapi3 ignores tagSingleConstructors : describe the tagged Sanitizer
 -- through a mirror ( drop it once Sanitizer has a second constructor )

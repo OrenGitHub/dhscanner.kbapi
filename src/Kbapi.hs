@@ -54,6 +54,7 @@ import qualified WithDataFlowPath
 import qualified WithConstStrings
 import qualified WithComments
 import qualified WithSanitizers
+import qualified WithDBReads
 
 data Query
    = SelectHttpHandlers WithHttpHandlers.Features
@@ -62,6 +63,7 @@ data Query
    | SelectConstStrings WithConstStrings.Features
    | SelectComments WithComments.Features
    | SelectSanitizers WithSanitizers.Features
+   | SelectDBReads WithDBReads.Features
    deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 
 data QueryResult
@@ -71,4 +73,5 @@ data QueryResult
    | FoundCommentsInFunction WithComments.Content
    | FoundDataFlowPath WithDataFlowPath.Content
    | FoundSanitizers WithSanitizers.Content
+   | FoundDBReads WithDBReads.Content
    deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )

@@ -11,6 +11,7 @@ import Data.Aeson
 
 -- project imports
 import Location
+import Common
 
 data Features
    = Features
@@ -28,14 +29,14 @@ data Features
 --
 -- * When 'to' writes to a database and the path reaches the value of
 --   one of its columns, the knowledge base says which model and column
---   the value is stored in ( 'DbWriteDataFlowPath' ), e.g.
+--   the value is stored in ( 'DBWriteDataFlowPath' ), e.g.
 --   @Post::where( 'id', $id )->update( [ 'title' => $title ] )@
 --   stores @$title@ in model @Post@, column @title@.
 --
 data Content
    = NoDataFlowPath
    | PlainDataFlowPath PlainDataFlowContent
-   | DbWriteDataFlowPath DBWriteDataFlowContent
+   | DBWriteDataFlowPath DBWriteDataFlowContent
    deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 
 data PlainDataFlowContent
@@ -53,6 +54,3 @@ data DBWriteDataFlowContent
          dbWriteDataFlowPath :: [ Location ]
      }
      deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
-
-data Model = Model String deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
-data Column = Column String deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )

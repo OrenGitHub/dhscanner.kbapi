@@ -30,7 +30,8 @@ data Sink
    | OpenRedirect
    | SSRF
    | SQL
-   | DbWrite
+   | DBWrite
+   | Import
    deriving ( Show, Eq, Ord, Generic, ToJSON, FromJSON )
 
 data Content
