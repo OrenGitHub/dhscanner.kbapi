@@ -1,0 +1,257 @@
+{
+    "components": {
+        "schemas": {
+            "BackendInfraProblemsContent": {
+                "properties": {
+                    "backendInfraProblemsDetails": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "backendInfraProblemsDetails"
+                ],
+                "type": "object"
+            },
+            "KBNotFoundContent": {
+                "properties": {
+                    "kbNotFoundDetails": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "kbNotFoundDetails"
+                ],
+                "type": "object"
+            },
+            "KBResponseInvalidSyntaxContent": {
+                "properties": {
+                    "kbResponseInvalidSyntaxDetails": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "kbResponseInvalidSyntaxDetails"
+                ],
+                "type": "object"
+            },
+            "KBSearchToolNotFoundContent": {
+                "properties": {
+                    "kbSearchToolNotFoundDetails": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "kbSearchToolNotFoundDetails"
+                ],
+                "type": "object"
+            },
+            "QueryError": {
+                "oneOf": [
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/TimeoutContent"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "Timeout"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "Timeout",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/KBNotFoundContent"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "KBNotFound"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "KBNotFound",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/BackendInfraProblemsContent"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "BackendInfraProblems"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "BackendInfraProblems",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/KBSearchToolNotFoundContent"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "KBSearchToolNotFound"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "KBSearchToolNotFound",
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "contents": {
+                                "$ref": "#/components/schemas/KBResponseInvalidSyntaxContent"
+                            },
+                            "tag": {
+                                "enum": [
+                                    "KBResponseInvalidSyntax"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tag",
+                            "contents"
+                        ],
+                        "title": "KBResponseInvalidSyntax",
+                        "type": "object"
+                    }
+                ]
+            },
+            "TimeoutContent": {
+                "properties": {
+                    "timeoutDetails": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "timeoutDetails"
+                ],
+                "type": "object"
+            }
+        }
+    },
+    "oneOf": [
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/TimeoutContent"
+                },
+                "tag": {
+                    "enum": [
+                        "Timeout"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "Timeout",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/KBNotFoundContent"
+                },
+                "tag": {
+                    "enum": [
+                        "KBNotFound"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "KBNotFound",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/BackendInfraProblemsContent"
+                },
+                "tag": {
+                    "enum": [
+                        "BackendInfraProblems"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "BackendInfraProblems",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/KBSearchToolNotFoundContent"
+                },
+                "tag": {
+                    "enum": [
+                        "KBSearchToolNotFound"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "KBSearchToolNotFound",
+            "type": "object"
+        },
+        {
+            "properties": {
+                "contents": {
+                    "$ref": "#/components/schemas/KBResponseInvalidSyntaxContent"
+                },
+                "tag": {
+                    "enum": [
+                        "KBResponseInvalidSyntax"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tag",
+                "contents"
+            ],
+            "title": "KBResponseInvalidSyntax",
+            "type": "object"
+        }
+    ]
+}
