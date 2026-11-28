@@ -36,6 +36,7 @@ jobs:
           docker create --name extract kbapi-schema
           docker cp extract:/build/query.schema.json .
           docker cp extract:/build/query_result.schema.json .
+          docker cp extract:/build/query_error.schema.json .
           docker rm extract
 
       - name: Commit schema files and version bump (only if changed)
@@ -44,7 +45,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          git add query.schema.json query_result.schema.json VERSION
+          git add query.schema.json query_result.schema.json query_error.schema.json VERSION
 
           if git diff --cached --quiet; then
             echo "No changes to commit"
@@ -66,4 +67,5 @@ jobs:
           gh release create "$VERSION" \
             --title "$VERSION" \
             query.schema.json \
-            query_result.schema.json
+            query_result.schema.json \
+            query_error.schema.json

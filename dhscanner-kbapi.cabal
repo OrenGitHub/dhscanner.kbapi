@@ -28,7 +28,7 @@ description:
     fundamental modifications to the structure or specification
     of code facts.
 
-version:            3.0.0
+version:            3.1.0
 license:            GPL-3.0-only
 license-file:       LICENSE
 author:             OrenGitHub
@@ -56,7 +56,8 @@ library
         WithComments,
         WithDataFlowPath,
         WithSanitizers,
-        WithDBReads
+        WithDBReads,
+        QueryError
 
     build-depends:
         aeson >= 2.2 && < 2.4,

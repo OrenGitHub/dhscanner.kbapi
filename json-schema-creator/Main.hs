@@ -32,6 +32,7 @@ import qualified WithComments
 import qualified WithDataFlowPath
 import qualified WithSanitizers
 import qualified WithDBReads
+import qualified QueryError
 
 -- every query module names its type Features : qualify the schema name
 qualifiedAs :: String -> SchemaOptions
@@ -95,6 +96,13 @@ instance ToSchema WithDBReads.Content where declareNamedSchema = genericDeclareN
 instance ToSchema WithDBReads.Match where declareNamedSchema = genericDeclareNamedSchema (qualifiedAs "WithDBReads")
 instance ToSchema WithDBReads.DBRead
 
+instance ToSchema QueryError.QueryError
+instance ToSchema QueryError.TimeoutContent
+instance ToSchema QueryError.KBNotFoundContent
+instance ToSchema QueryError.BackendInfraProblemsContent
+instance ToSchema QueryError.KBSearchToolNotFoundContent
+instance ToSchema QueryError.KBResponseInvalidSyntaxContent
+
 -- openapi3 ignores tagSingleConstructors : describe the tagged Sanitizer
 -- through a mirror ( drop it once Sanitizer has a second constructor )
 data SanitizerTag = TopLevelIfThenElse deriving ( Generic )
@@ -121,5 +129,7 @@ main :: IO ()
 main = do
     BL.writeFile "query.schema.json" (encodePretty (schemaWithDefs (Proxy :: Proxy Query)))
     BL.writeFile "query_result.schema.json" (encodePretty (schemaWithDefs (Proxy :: Proxy QueryResult)))
+    BL.writeFile "query_error.schema.json" (encodePretty (schemaWithDefs (Proxy :: Proxy QueryError.QueryError)))
     putStrLn "wrote query.schema.json"
     putStrLn "wrote query_result.schema.json"
+    putStrLn "wrote query_error.schema.json"

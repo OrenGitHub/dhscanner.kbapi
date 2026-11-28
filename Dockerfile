@@ -14,3 +14,4 @@ FROM scratch AS output
 
 COPY --from=builder /build/query.schema.json /
 COPY --from=builder /build/query_result.schema.json /
+COPY --from=builder /build/query_error.schema.json /
